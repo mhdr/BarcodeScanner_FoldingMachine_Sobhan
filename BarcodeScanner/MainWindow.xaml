@@ -1,8 +1,75 @@
-﻿<Window x:Class="BarcodeScanner.MainWindow"
+﻿<Window xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"  x:Class="BarcodeScanner.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="592" Width="815" Loaded="MainWindow_OnLoaded" WindowState="Maximized">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition MinHeight="10" MaxHeight="25"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel>
+            <telerik:RadRibbonView Name="RibbonViewMain" DockPanel.Dock="Top" HorizontalAlignment="Stretch" ApplicationName="Barcode Scanner">
+                <telerik:RadRibbonTab Name="RibbonTabBarcodeScanner1" Header="Barcode Scanner 1" MinWidth="70">
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonStart" Content="Start" 
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonStart_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonStop" Content="Stop" IsEnabled="False"
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonStop_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonSetTemplate" Content="Set Template"
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonSetTemplate_OnClick"/>
+                    </telerik:RadRibbonGroup>                    
+
+                </telerik:RadRibbonTab>
+            </telerik:RadRibbonView>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <WindowsFormsHost x:Name="FormReadBarcode" Height="50" Grid.Row="0" Visibility="Collapsed"/>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="Barcode :" FontWeight="Bold" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="TextBlockBarcode1"
+                             HorizontalAlignment="Stretch" MinWidth="100" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="Counter :" FontWeight="Bold" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="TextBlockCounter1" MinWidth="20" Margin="5,0,5,0" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="Template :" FontWeight="Bold" Margin="50,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="TextBlockTemplate1" MinWidth="100"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Text="Barcode :" FontWeight="Bold" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="TextBlockBarcode2"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="100"/>
+
+                    <TextBlock Text="Counter :" FontWeight="Bold" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="TextBlockCounter2" Margin="5,0,5,0" VerticalAlignment="Center" MinWidth="20"/>
+
+                    <TextBlock Text="Template :" FontWeight="Bold" Margin="50,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Name="TextBlockTemplate2" MinWidth="100"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+
     </Grid>
 </Window>

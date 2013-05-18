@@ -1,6 +1,6 @@
 ﻿namespace BarcodeScanner
 {
-    partial class FormReadBarcodeScanner
+    partial class FormReadBarcode
     {
         /// <summary>
         /// Required designer variable.
@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxBarcode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxBarcode
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(284, 262);
-            this.textBox1.TabIndex = 0;
+            this.textBoxBarcode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxBarcode.Location = new System.Drawing.Point(0, 0);
+            this.textBoxBarcode.Multiline = true;
+            this.textBoxBarcode.Name = "textBoxBarcode";
+            this.textBoxBarcode.ReadOnly = true;
+            this.textBoxBarcode.Size = new System.Drawing.Size(459, 54);
+            this.textBoxBarcode.TabIndex = 0;
             // 
-            // FormReadBarcodeScanner
+            // FormReadBarcode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.textBox1);
-            this.Name = "FormReadBarcodeScanner";
-            this.Text = "FormReadBarcodeScanner";
-            this.Load += new System.EventHandler(this.FormReadBarcodeScanner_Load);
+            this.ClientSize = new System.Drawing.Size(459, 54);
+            this.Controls.Add(this.textBoxBarcode);
+            this.Name = "FormReadBarcode";
+            this.Text = "FormReadBarcode";
+            this.Load += new System.EventHandler(this.FormReadBarcode_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -57,6 +57,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxBarcode;
     }
 }
