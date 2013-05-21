@@ -62,6 +62,7 @@ namespace BarcodeScanner
         {
             FormReadBarcode formReadBarcode=new FormReadBarcode();
             formReadBarcode.Barcode1Read += formReadBarcode_Barcode1Read;
+            //formReadBarcode.Visible = false;
             formReadBarcode.Show();
             formReadBarcode.Hide();
         }

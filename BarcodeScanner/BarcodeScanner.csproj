@@ -85,6 +85,7 @@
     <Compile Include="FormReadBarcode.Designer.cs">
       <DependentUpon>FormReadBarcode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lib\BarcodeGridViewStyle.cs" />
     <Compile Include="Lib\BarcodeReader.cs" />
     <Compile Include="Lib\BarcodeReadEventArgs.cs" />
     <Compile Include="Lib\Enums.cs" />
