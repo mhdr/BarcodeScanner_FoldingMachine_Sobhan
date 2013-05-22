@@ -26,7 +26,10 @@ namespace BarcodeScanner
         public int Barcode1Counter { get; set; }
         public int Barcode2Counter { get; set; }
         public ObservableCollection<BarcodeReader> BarcodeReader1Collection;
+        private ObservableCollection<BarcodeReader> _barcodeReader2Collection;
+
         private ListCollectionView _view;
+        private ListCollectionView _view2;
 
         public bool BarcodeScanner1Running
         {
@@ -43,6 +46,9 @@ namespace BarcodeScanner
         private bool _barcodeScanner1Running;
         private bool _barcodeScanner1TemplateRunning;
 
+        private bool _barcodeScanner2Running;
+        private bool _barcodeScanner2TemplateRunning;
+
         string BarcodeScanner1Template { get; set; }
         string BarcodeScanner2Template { get; set; }
 
@@ -50,6 +56,30 @@ namespace BarcodeScanner
         {
             get { return _view; }
             set { _view = value; }
+        }
+
+        public ObservableCollection<BarcodeReader> BarcodeReader2Collection
+        {
+            get { return _barcodeReader2Collection; }
+            set { _barcodeReader2Collection = value; }
+        }
+
+        public ListCollectionView View2
+        {
+            get { return _view2; }
+            set { _view2 = value; }
+        }
+
+        public bool BarcodeScanner2Running
+        {
+            get { return _barcodeScanner2Running; }
+            set { _barcodeScanner2Running = value; }
+        }
+
+        public bool BarcodeScanner2TemplateRunning
+        {
+            get { return _barcodeScanner2TemplateRunning; }
+            set { _barcodeScanner2TemplateRunning = value; }
         }
 
 
@@ -111,12 +141,35 @@ namespace BarcodeScanner
         {
             if (!BarcodeScanner1TemplateRunning)
             {
+                if (string.IsNullOrEmpty(BarcodeScanner1Template))
+                {
+                    ShowMsgOnStatusBar("You have to set a Template first");
+                    return;
+                }
+
                 BarcodeScanner1Running = true;
                 RibbonButtonStart.IsEnabled = false;
                 RibbonButtonStop.IsEnabled = true;
    
                 BindGridViewBarcodeReader1();
             }
+        }
+
+        private void ShowMsgOnStatusBar(string msg)
+        {
+            ClearStatusBar();
+
+            StatusBarBottom.Items.Add(msg);
+        }
+
+        private void ClearStatusBar()
+        {
+            StatusBarBottom.Items.Clear();
+        }
+
+        private void StatusBarBottom_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ClearStatusBar();
         }
 
         private void RibbonButtonStop_OnClick(object sender, RoutedEventArgs e)
@@ -128,6 +181,8 @@ namespace BarcodeScanner
 
         private void RibbonButtonSetTemplate_OnClick(object sender, RoutedEventArgs e)
         {
+
+
             if (!BarcodeScanner1Running)
             {
                 BarcodeScanner1TemplateRunning = true;
@@ -141,6 +196,48 @@ namespace BarcodeScanner
             CollectionViewSource barcodeReader1Source = (CollectionViewSource) FindResource("BarcodeReader1Source");
             barcodeReader1Source.Source = BarcodeReader1Collection;
             View = (ListCollectionView) barcodeReader1Source.View;
+        }
+
+        private void BindGridViewBarcodeReader2()
+        {
+            BarcodeReader2Collection = new ObservableCollection<BarcodeReader>();
+            CollectionViewSource barcodeReader2Source = (CollectionViewSource)FindResource("BarcodeReader2Source");
+            barcodeReader2Source.Source = BarcodeReader2Collection;
+            View2 = (ListCollectionView)barcodeReader2Source.View;
+        }
+
+        private void RibbonButtonStart2_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!BarcodeScanner2TemplateRunning)
+            {
+                if (string.IsNullOrEmpty(BarcodeScanner2Template))
+                {
+                    ShowMsgOnStatusBar("You have to set a Template first");
+                    return;
+                }
+
+                BarcodeScanner2Running = true;
+                RibbonButtonStart2.IsEnabled = false;
+                RibbonButtonStop2.IsEnabled = true;
+
+                BindGridViewBarcodeReader2();
+            }
+        }
+
+        private void RibbonButtonStop2_OnClick(object sender, RoutedEventArgs e)
+        {
+            BarcodeScanner2Running = false;
+            RibbonButtonStart2.IsEnabled = true;
+            RibbonButtonStop2.IsEnabled = false;
+        }
+
+        private void RibbonButtonSetTemplate2_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!BarcodeScanner2Running)
+            {
+                BarcodeScanner2TemplateRunning = true;
+                RibbonButtonSetTemplate2.IsEnabled = false;
+            }
         }
     }
 }
