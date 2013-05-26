@@ -17,7 +17,16 @@ namespace BarcodeScanner
     public partial class FormReadBarcode : Form
     {
         public event EventHandler<Lib.BarcodeReadEventArgs> Barcode1Read;
+        public event EventHandler<BarcodeReadEventArgs> Barcode2Read;
+
+        protected virtual void OnBarcode2Read(BarcodeReadEventArgs e)
+        {
+            EventHandler<BarcodeReadEventArgs> handler = Barcode2Read;
+            if (handler != null) handler(this, e);
+        }
+
         private string _barcode1;
+        private string _barcode2;
 
         public string Barcode1
         {
@@ -25,17 +34,15 @@ namespace BarcodeScanner
             set { _barcode1 = value; }
         }
 
+        public string Barcode2
+        {
+            get { return _barcode2; }
+            set { _barcode2 = value; }
+        }
+
         protected virtual void OnBarcode1Read(BarcodeReadEventArgs e)
         {
             EventHandler<BarcodeReadEventArgs> handler = Barcode1Read;
-            if (handler != null) handler(this, e);
-        }
-
-        public event EventHandler<Lib.BarcodeReadEventArgs> Barcode2Read;
-
-        protected virtual void OnBarcode2Read(BarcodeReadEventArgs e)
-        {
-            EventHandler<BarcodeReadEventArgs> handler = Barcode2Read;
             if (handler != null) handler(this, e);
         }
 
@@ -46,27 +53,33 @@ namespace BarcodeScanner
 
         private void FormReadBarcode_Load(object sender, EventArgs e)
         {
-            //var devices = Device.GetDevices();
             Device.RegisterDevice(UsagePage.Generic, UsageId.GenericKeyboard, DeviceFlags.None);
             Device.KeyboardInput += Device_KeyboardInput;
         }
 
         void Device_KeyboardInput(object sender, KeyboardInputEventArgs e)
         {
-            if (e.State == KeyState.KeyUp)
+            var devices = Device.GetDevices();
+
+            var device = devices.Find(x => x.Handle == e.Device);
+
+            if (device.DeviceName ==
+                "\\\\?\\HID#VID_0000&PID_0001#6&29057869&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
             {
-                if (e.Key == Keys.Return)
+                if (e.State == KeyState.KeyUp)
                 {
-                    OnBarcode1Read(new BarcodeReadEventArgs(string.Format("{0}",Barcode1)));
-                    Barcode1 = "";
+                    if (e.Key == Keys.Return)
+                    {
+                        OnBarcode1Read(new BarcodeReadEventArgs(string.Format("{0}", Barcode1)));
+                        Barcode1 = "";
+                    }
+                    else
+                    {
+                        char barcode = (char)e.Key;
+                        Barcode1 += barcode;
+                    }
                 }
-                else
-                {
-                    char barcode = (char)e.Key;
-                    Barcode1 += barcode;
-                }    
             }
-            
         }
     }
 }
