@@ -34,6 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NationalInstruments.Common, Version=13.0.40.188, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.NetworkVariable, Version=13.0.45.242, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL" />
     <Reference Include="SharpDX">
       <HintPath>..\DLL\SharpDX.dll</HintPath>
     </Reference>
@@ -107,6 +109,8 @@
     <Compile Include="Lib\BarcodeReader.cs" />
     <Compile Include="Lib\BarcodeReadEventArgs.cs" />
     <Compile Include="Lib\Enums.cs" />
+    <Compile Include="Lib\PLCVariable.cs" />
+    <Compile Include="Lib\Statics.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -130,6 +134,7 @@
     <EmbeddedResource Include="FormReadBarcode.resx">
       <DependentUpon>FormReadBarcode.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

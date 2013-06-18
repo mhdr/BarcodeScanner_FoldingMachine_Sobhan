@@ -102,6 +102,9 @@ namespace BarcodeScanner
             //formReadBarcode.Visible = false;
             formReadBarcode.Show();
             formReadBarcode.Hide();
+
+            BindGridViewBarcodeReader1();
+            BindGridViewBarcodeReader2();
         }
 
         void formReadBarcode_Barcode2Read(object sender, BarcodeReadEventArgs e)
@@ -169,6 +172,9 @@ namespace BarcodeScanner
                 if (barcode1 != BarcodeScanner1Template)
                 {
                     readStatus=ReadStatus.Mismatch;
+
+                    StopMachine1Motor();
+                    StopBarcodeReader1();
                 }
 
                 reader.Status = readStatus;
@@ -177,6 +183,23 @@ namespace BarcodeScanner
             }
         }
         private void RibbonButtonStart_OnClick(object sender, RoutedEventArgs e)
+        {
+            StartBarcodeReader1();
+        }
+
+        public void StartMachine1Motor()
+        {
+            PLCVariable plcVariable=new PLCVariable(Lib.Statics.Machine1Motor);
+            plcVariable.Start();
+        }
+
+        public void StopMachine1Motor()
+        {
+            PLCVariable plcVariable=new PLCVariable(Lib.Statics.Machine1Motor);
+            plcVariable.Stop();
+        }
+
+        private void StartBarcodeReader1()
         {
             if (!BarcodeScanner1TemplateRunning)
             {
@@ -189,8 +212,8 @@ namespace BarcodeScanner
                 BarcodeScanner1Running = true;
                 RibbonButtonStart.IsEnabled = false;
                 RibbonButtonStop.IsEnabled = true;
-   
-                BindGridViewBarcodeReader1();
+
+                StartMachine1Motor();
             }
         }
 
@@ -212,6 +235,11 @@ namespace BarcodeScanner
         }
 
         private void RibbonButtonStop_OnClick(object sender, RoutedEventArgs e)
+        {
+            StopBarcodeReader1();
+        }
+
+        private void StopBarcodeReader1()
         {
             BarcodeScanner1Running = false;
             RibbonButtonStart.IsEnabled = true;
@@ -258,8 +286,6 @@ namespace BarcodeScanner
                 BarcodeScanner2Running = true;
                 RibbonButtonStart2.IsEnabled = false;
                 RibbonButtonStop2.IsEnabled = true;
-
-                BindGridViewBarcodeReader2();
             }
         }
 
