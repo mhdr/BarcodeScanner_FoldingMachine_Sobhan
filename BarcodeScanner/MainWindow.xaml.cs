@@ -49,7 +49,7 @@ namespace BarcodeScanner
 
         public void Timer1_Elapsed(object state)
         {
-            PLCInt plcInt = new PLCInt(Statics.Counter1DB);
+            PLCInt plcInt = new PLCInt(Statics.Machine1CounterAI);
             Machine1Counter = plcInt.Value;
 
             if (Math.Abs(Barcode1Counter - Machine1Counter) > 1)
