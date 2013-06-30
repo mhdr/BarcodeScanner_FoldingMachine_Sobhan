@@ -10,28 +10,28 @@ namespace UnitTest
         [TestMethod]
         public void Start01()
         {
-            BarcodeScanner.Lib.PLCVariable plcVariable=new PLCVariable(BarcodeScanner.Lib.Statics.Machine1Motor);
+            BarcodeScanner.Lib.PLCBool plcVariable=new PLCBool(BarcodeScanner.Lib.Statics.Machine1Motor);
             plcVariable.Start();
         }
 
         [TestMethod]
         public void Stop01()
         {
-            BarcodeScanner.Lib.PLCVariable plcVariable = new PLCVariable(BarcodeScanner.Lib.Statics.Machine1Motor);
+            BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine1Motor);
             plcVariable.Stop();
         }
 
         [TestMethod]
         public void Start02()
         {
-            BarcodeScanner.Lib.PLCVariable plcVariable = new PLCVariable(BarcodeScanner.Lib.Statics.Machine2Motor);
+            BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine2Motor);
             plcVariable.Start();
         }
 
         [TestMethod]
         public void Stop02()
         {
-            BarcodeScanner.Lib.PLCVariable plcVariable = new PLCVariable(BarcodeScanner.Lib.Statics.Machine2Motor);
+            BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine2Motor);
             plcVariable.Stop();
         }
     }

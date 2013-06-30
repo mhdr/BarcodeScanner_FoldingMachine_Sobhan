@@ -7,11 +7,12 @@ using NationalInstruments.NetworkVariable;
 
 namespace BarcodeScanner.Lib
 {
-    public class PLCVariable
+    public class PLCBool
     {
         private NetworkVariableBufferedSubscriber<Boolean> _subscriberBool;
         private NetworkVariableBufferedWriter<Boolean> _bufferedWriterBool; 
         private string _location;
+        private bool _value;
 
 
         public NetworkVariableBufferedSubscriber<bool> SubscriberBool
@@ -32,12 +33,24 @@ namespace BarcodeScanner.Lib
             set { _bufferedWriterBool = value; }
         }
 
-        public PLCVariable(string location)
+        public bool Value
+        {
+            set
+            {
+                BufferedWriterBool.Connect();
+                BufferedWriterBool.WriteValue(value);
+                _value = value;
+            }
+        }
+
+        public PLCBool(string location)
         {
             this.Location = location;
             SubscriberBool = new NetworkVariableBufferedSubscriber<bool>(this.Location);
             BufferedWriterBool=new NetworkVariableBufferedWriter<bool>(this.Location);
         }
+
+        
 
         public void Stop()
         {

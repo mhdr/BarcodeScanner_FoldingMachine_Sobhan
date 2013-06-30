@@ -80,6 +80,23 @@ namespace BarcodeScanner
                     }
                 }
             }
+            else if (device.DeviceName ==
+    "\\\\?\\HID#VID_0000&PID_0001#6&1a1f2f6&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
+            {
+                if (e.State == KeyState.KeyUp)
+                {
+                    if (e.Key == Keys.Return)
+                    {
+                        OnBarcode2Read(new BarcodeReadEventArgs(string.Format("{0}", Barcode2)));
+                        Barcode2 = "";
+                    }
+                    else
+                    {
+                        char barcode = (char)e.Key;
+                        Barcode2 += barcode;
+                    }
+                }
+            }
         }
     }
 }

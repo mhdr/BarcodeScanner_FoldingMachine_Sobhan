@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,69 @@ namespace BarcodeScanner
             set { _barcodeScanner1TemplateRunning = value; }
         }
 
+        public System.Threading.Timer Timer1;
+        public System.Threading.Timer Timer2;
+
+        public void Timer1_Elapsed(object state)
+        {
+            PLCInt plcInt = new PLCInt(Statics.Counter1DB);
+            Machine1Counter = plcInt.Value;
+
+            if (Math.Abs(Barcode1Counter - Machine1Counter) > 1)
+            {
+                Barcode1Counter += 1;
+                Lib.BarcodeReader reader = new BarcodeReader();
+                reader.Number = Barcode1Counter;
+                reader.Barcode = "";
+                ReadStatus readStatus = ReadStatus.Blank;
+                reader.Status = readStatus;
+
+                Action action=new Action(()=>Timer1_UI(reader));
+                Dispatcher.BeginInvoke(action);
+            }
+        }
+
+        public void Timer1_UI(BarcodeReader reader)
+        {
+            StopMachine1Motor();
+            StopBarcodeReader1();
+            BarcodeReader1Collection.Insert(0, reader);
+
+            Barcode1Counter = Machine1Counter;
+
+            Timer1.Dispose();
+        }
+
+        public void Timer2_Elapsed(object state)
+        {
+            PLCInt plcInt = new PLCInt(Statics.Counter2DB);
+            Machine2Counter = plcInt.Value;
+
+            if (Math.Abs(Barcode2Counter - Machine2Counter) > 1)
+            {
+                Barcode2Counter += 1;
+                Lib.BarcodeReader reader = new BarcodeReader();
+                reader.Number = Barcode2Counter;
+                reader.Barcode = "";
+                ReadStatus readStatus = ReadStatus.Blank;
+                reader.Status = readStatus;
+
+                Action action = new Action(() => Timer2_UI(reader));
+                Dispatcher.BeginInvoke(action);
+            }
+        }
+
+        public void Timer2_UI(BarcodeReader reader)
+        {
+            StopMachine2Motor();
+            StopBarcodeReader1();
+            BarcodeReader1Collection.Insert(0, reader);
+
+            Barcode1Counter = Machine1Counter;
+
+            Timer1.Dispose();
+        }
+
         private bool _barcodeScanner1Running;
         private bool _barcodeScanner1TemplateRunning;
 
@@ -51,6 +115,12 @@ namespace BarcodeScanner
 
         string BarcodeScanner1Template { get; set; }
         string BarcodeScanner2Template { get; set; }
+
+        public WorkMode Machine1Mode { get; set; }
+        public WorkMode Machine2Mode { get; set; }
+
+        public int Machine1Counter { get; set; }
+        public int Machine2Counter { get; set; }
 
         public ListCollectionView View
         {
@@ -88,7 +158,6 @@ namespace BarcodeScanner
             set { _barcodeReader1Collection = value; }
         }
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -96,7 +165,17 @@ namespace BarcodeScanner
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            FormReadBarcode formReadBarcode=new FormReadBarcode();
+            // Reset Counters
+            PLCBool counter1Reset = new PLCBool(Statics.Counter1Reset);
+            counter1Reset.Value = true;
+            PLCBool counter2Reset = new PLCBool(Statics.Counter2Reset);
+            counter2Reset.Value = true;
+
+            counter1Reset.Value = false;
+            counter2Reset.Value = false;
+            //
+
+            FormReadBarcode formReadBarcode = new FormReadBarcode();
             formReadBarcode.Barcode1Read += formReadBarcode_Barcode1Read;
             formReadBarcode.Barcode2Read += formReadBarcode_Barcode2Read;
             //formReadBarcode.Visible = false;
@@ -105,6 +184,11 @@ namespace BarcodeScanner
 
             BindGridViewBarcodeReader1();
             BindGridViewBarcodeReader2();
+
+            //
+            Machine1Mode = WorkMode.WithCounter;
+            Machine2Mode = WorkMode.WithoutCounter;
+            //
         }
 
         void formReadBarcode_Barcode2Read(object sender, BarcodeReadEventArgs e)
@@ -112,7 +196,7 @@ namespace BarcodeScanner
             if (BarcodeScanner2TemplateRunning)
             {
                 BarcodeScanner2Template = e.Code;
-                TextBlockTemplate2.Text = BarcodeScanner1Template;
+                TextBlockTemplate2.Text = BarcodeScanner2Template;
                 RibbonButtonSetTemplate2.IsEnabled = true;
                 BarcodeScanner2TemplateRunning = false;
             }
@@ -127,14 +211,17 @@ namespace BarcodeScanner
                 reader.Barcode = barcode2;
                 ReadStatus readStatus = ReadStatus.Blank;
 
-                if (barcode2 == BarcodeScanner1Template)
+                if (barcode2 == BarcodeScanner2Template)
                 {
                     readStatus = ReadStatus.OK;
                 }
 
-                if (barcode2 != BarcodeScanner1Template)
+                if (barcode2 != BarcodeScanner2Template)
                 {
                     readStatus = ReadStatus.Mismatch;
+
+                    StopMachine2Motor();
+                    StopBarcodeReader2();
                 }
 
                 reader.Status = readStatus;
@@ -153,25 +240,25 @@ namespace BarcodeScanner
                 RibbonButtonSetTemplate.IsEnabled = true;
                 BarcodeScanner1TemplateRunning = false;
             }
-            
+
             if (BarcodeScanner1Running)
             {
                 Barcode1Counter += 1;
                 string barcode1 = e.Code;
 
-                Lib.BarcodeReader reader=new BarcodeReader();
+                Lib.BarcodeReader reader = new BarcodeReader();
                 reader.Number = Barcode1Counter;
                 reader.Barcode = barcode1;
                 ReadStatus readStatus = ReadStatus.Blank;
 
                 if (barcode1 == BarcodeScanner1Template)
                 {
-                    readStatus=ReadStatus.OK;
+                    readStatus = ReadStatus.OK;
                 }
-                
+
                 if (barcode1 != BarcodeScanner1Template)
                 {
-                    readStatus=ReadStatus.Mismatch;
+                    readStatus = ReadStatus.Mismatch;
 
                     StopMachine1Motor();
                     StopBarcodeReader1();
@@ -179,23 +266,40 @@ namespace BarcodeScanner
 
                 reader.Status = readStatus;
 
-                BarcodeReader1Collection.Insert(0,reader);   
+                BarcodeReader1Collection.Insert(0, reader);
             }
         }
         private void RibbonButtonStart_OnClick(object sender, RoutedEventArgs e)
         {
             StartBarcodeReader1();
+
+            if (Machine1Mode == WorkMode.WithCounter)
+            {
+                Timer1 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 1000);
+            }
         }
 
         public void StartMachine1Motor()
         {
-            PLCVariable plcVariable=new PLCVariable(Lib.Statics.Machine1Motor);
+            PLCBool plcVariable = new PLCBool(Lib.Statics.Machine1Motor);
+            plcVariable.Start();
+        }
+
+        public void StartMachine2Motor()
+        {
+            PLCBool plcVariable = new PLCBool(Lib.Statics.Machine2Motor);
             plcVariable.Start();
         }
 
         public void StopMachine1Motor()
         {
-            PLCVariable plcVariable=new PLCVariable(Lib.Statics.Machine1Motor);
+            PLCBool plcVariable = new PLCBool(Lib.Statics.Machine1Motor);
+            plcVariable.Stop();
+        }
+
+        public void StopMachine2Motor()
+        {
+            PLCBool plcVariable = new PLCBool(Lib.Statics.Machine2Motor);
             plcVariable.Stop();
         }
 
@@ -214,6 +318,24 @@ namespace BarcodeScanner
                 RibbonButtonStop.IsEnabled = true;
 
                 StartMachine1Motor();
+            }
+        }
+
+        private void StartBarcodeReader2()
+        {
+            if (!BarcodeScanner2TemplateRunning)
+            {
+                if (string.IsNullOrEmpty(BarcodeScanner2Template))
+                {
+                    ShowMsgOnStatusBar("You have to set a Template first");
+                    return;
+                }
+
+                BarcodeScanner2Running = true;
+                RibbonButtonStart2.IsEnabled = false;
+                RibbonButtonStop2.IsEnabled = true;
+
+                StartMachine2Motor();
             }
         }
 
@@ -246,6 +368,13 @@ namespace BarcodeScanner
             RibbonButtonStop.IsEnabled = false;
         }
 
+        private void StopBarcodeReader2()
+        {
+            BarcodeScanner2Running = false;
+            RibbonButtonStart2.IsEnabled = true;
+            RibbonButtonStop2.IsEnabled = false;
+        }
+
         private void RibbonButtonSetTemplate_OnClick(object sender, RoutedEventArgs e)
         {
 
@@ -259,10 +388,10 @@ namespace BarcodeScanner
 
         private void BindGridViewBarcodeReader1()
         {
-            BarcodeReader1Collection=new ObservableCollection<BarcodeReader>();
-            CollectionViewSource barcodeReader1Source = (CollectionViewSource) FindResource("BarcodeReader1Source");
+            BarcodeReader1Collection = new ObservableCollection<BarcodeReader>();
+            CollectionViewSource barcodeReader1Source = (CollectionViewSource)FindResource("BarcodeReader1Source");
             barcodeReader1Source.Source = BarcodeReader1Collection;
-            View = (ListCollectionView) barcodeReader1Source.View;
+            View = (ListCollectionView)barcodeReader1Source.View;
         }
 
         private void BindGridViewBarcodeReader2()
@@ -275,6 +404,14 @@ namespace BarcodeScanner
 
         private void RibbonButtonStart2_OnClick(object sender, RoutedEventArgs e)
         {
+            StartBarcodeReader2();
+
+            if (Machine2Mode == WorkMode.WithCounter)
+            {
+                Timer2 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 1000);
+            }
+
+
             if (!BarcodeScanner2TemplateRunning)
             {
                 if (string.IsNullOrEmpty(BarcodeScanner2Template))
@@ -287,6 +424,9 @@ namespace BarcodeScanner
                 RibbonButtonStart2.IsEnabled = false;
                 RibbonButtonStop2.IsEnabled = true;
             }
+
+
+
         }
 
         private void RibbonButtonStop2_OnClick(object sender, RoutedEventArgs e)
