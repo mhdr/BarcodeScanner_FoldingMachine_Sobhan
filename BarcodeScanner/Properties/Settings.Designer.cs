@@ -22,5 +22,53 @@ namespace BarcodeScanner.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Counter1Active {
+            get {
+                return ((bool)(this["Counter1Active"]));
+            }
+            set {
+                this["Counter1Active"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Counter2Active {
+            get {
+                return ((bool)(this["Counter2Active"]));
+            }
+            set {
+                this["Counter2Active"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HID1 {
+            get {
+                return ((string)(this["HID1"]));
+            }
+            set {
+                this["HID1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HID2 {
+            get {
+                return ((string)(this["HID2"]));
+            }
+            set {
+                this["HID2"] = value;
+            }
+        }
     }
 }

@@ -51,6 +51,9 @@ namespace BarcodeScanner
             InitializeComponent();
         }
 
+        public bool Device1HIDBeingSet = false;
+        public bool Device2HIDBegingSet = false;
+
         private void FormReadBarcode_Load(object sender, EventArgs e)
         {
             Device.RegisterDevice(UsagePage.Generic, UsageId.GenericKeyboard, DeviceFlags.None);
@@ -63,8 +66,21 @@ namespace BarcodeScanner
 
             var device = devices.Find(x => x.Handle == e.Device);
 
-            if (device.DeviceName ==
-                "\\\\?\\HID#VID_0000&PID_0001#6&29057869&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
+            //if (Device1HIDBeingSet)
+            //{
+            //    Statics.HID1 = device.DeviceName;
+            //    Device1HIDBeingSet = false;
+            //}
+
+            //if (Device2HIDBegingSet)
+            //{
+            //    Statics.HID2 = device.DeviceName;
+            //    Device2HIDBegingSet = false;
+            //}
+
+            // "\\\\?\\HID#VID_0000&PID_0001#6&64975e5&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0"
+
+            if (device.DeviceName == "\\\\?\\HID#VID_0000&PID_0001#6&164bc7c4&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
             {
                 if (e.State == KeyState.KeyUp)
                 {
@@ -80,8 +96,7 @@ namespace BarcodeScanner
                     }
                 }
             }
-            else if (device.DeviceName ==
-    "\\\\?\\HID#VID_0000&PID_0001#6&1a1f2f6&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
+            else if (device.DeviceName == "\\\\?\\HID#VID_0000&PID_0001#6&64975e5&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
             {
                 if (e.State == KeyState.KeyUp)
                 {
