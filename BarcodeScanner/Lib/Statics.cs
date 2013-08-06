@@ -8,9 +8,6 @@ namespace BarcodeScanner.Lib
 {
     public class Statics
     {
-        public static string HID1 = "";
-        public static string HID2 = "";
-
         public static string Machine1Motor = @"\\localhost\Project01\OPC\PLCS71200\Device1\Machine1Motor";
         public static string Machine2Motor = @"\\localhost\Project01\OPC\PLCS71200\Device1\Machine2Motor";
         public static string Counter1DB = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter1DB";

@@ -488,10 +488,5 @@ namespace BarcodeScanner
             }
         }
 
-        private void RibbonButtonHIDs_OnClick(object sender, RoutedEventArgs e)
-        {
-            WindowHIDs windowHiDs=new WindowHIDs();
-            windowHiDs.Show();
-        }
     }
 }
