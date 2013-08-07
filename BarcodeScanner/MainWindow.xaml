@@ -49,8 +49,9 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <CheckBox Name="CheckBoxActivateCounter1" Click="CheckBoxActivateCounter1_OnClick"
-                                  VerticalAlignment="Center">Counter</CheckBox>
+                        <telerik:RadRibbonToggleButton Content="Counter" Name="RadRibbonToggleButtonCounter1" MinWidth="75"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                       Click="RadRibbonToggleButtonCounter1_OnClick"/>
                     </telerik:RadRibbonGroup>
 
                 </telerik:RadRibbonTab>
@@ -75,10 +76,10 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <CheckBox Name="CheckBoxActivateCounter2" Click="CheckBoxActivateCounter2_OnClick"
-                                  VerticalAlignment="Center">Counter</CheckBox>
+                        <telerik:RadRibbonToggleButton Content="Counter" VerticalAlignment="Center"
+                                                       MinWidth="75"
+                                                       Name="RadRibbonToggleButtonCounter2" Click="RadRibbonToggleButtonCounter2_OnClick"/>
                     </telerik:RadRibbonGroup>
-
                 </telerik:RadRibbonTab>
             </telerik:RadRibbonView>
 

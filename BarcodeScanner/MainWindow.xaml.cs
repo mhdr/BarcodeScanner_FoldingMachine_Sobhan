@@ -186,8 +186,8 @@ namespace BarcodeScanner
             BindGridViewBarcodeReader1();
             BindGridViewBarcodeReader2();
 
-            CheckBoxActivateCounter1.IsChecked = Properties.Settings.Default.Counter1Active;
-            CheckBoxActivateCounter2.IsChecked = Properties.Settings.Default.Counter2Active;
+            RadRibbonToggleButtonCounter1.IsChecked = Properties.Settings.Default.Counter1Active;
+            RadRibbonToggleButtonCounter2.IsChecked = Properties.Settings.Default.Counter2Active;
         }
 
         void formReadBarcode_Barcode2Read(object sender, BarcodeReadEventArgs e)
@@ -460,33 +460,33 @@ namespace BarcodeScanner
             }
         }
 
-        private void CheckBoxActivateCounter1_OnClick(object sender, RoutedEventArgs e)
+
+        private void RadRibbonToggleButtonCounter1_OnClick(object sender, RoutedEventArgs e)
         {
-            if ((bool)CheckBoxActivateCounter1.IsChecked)
+            if ((bool)RadRibbonToggleButtonCounter1.IsChecked)
             {
                 Properties.Settings.Default.Counter1Active = true;
                 Properties.Settings.Default.Save();
             }
-            else if ((bool)CheckBoxActivateCounter1.IsChecked==false)
+            else if ((bool)RadRibbonToggleButtonCounter1.IsChecked == false)
             {
                 Properties.Settings.Default.Counter1Active = false;
                 Properties.Settings.Default.Save();
             }
         }
 
-        private void CheckBoxActivateCounter2_OnClick(object sender, RoutedEventArgs e)
+        private void RadRibbonToggleButtonCounter2_OnClick(object sender, RoutedEventArgs e)
         {
-            if ((bool)CheckBoxActivateCounter2.IsChecked)
+            if ((bool)RadRibbonToggleButtonCounter2.IsChecked)
             {
                 Properties.Settings.Default.Counter2Active = true;
                 Properties.Settings.Default.Save();
             }
-            else if ((bool)CheckBoxActivateCounter2.IsChecked==false)
+            else if ((bool)RadRibbonToggleButtonCounter2.IsChecked == false)
             {
                 Properties.Settings.Default.Counter2Active = false;
                 Properties.Settings.Default.Save();
             }
         }
-
     }
 }
