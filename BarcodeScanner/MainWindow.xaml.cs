@@ -488,5 +488,17 @@ namespace BarcodeScanner
                 Properties.Settings.Default.Save();
             }
         }
+
+        private void RibbonButtonHID1_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowHID windowHid=new WindowHID(1);
+            windowHid.ShowDialog();
+        }
+
+        private void RibbonButtonHID2_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowHID windowHid = new WindowHID(2);
+            windowHid.ShowDialog();
+        }
     }
 }

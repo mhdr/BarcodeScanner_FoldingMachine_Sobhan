@@ -54,6 +54,12 @@
                                                        Click="RadRibbonToggleButtonCounter1_OnClick"/>
                     </telerik:RadRibbonGroup>
 
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonHID1" Content="HID"
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonHID1_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
                 </telerik:RadRibbonTab>
 
                 <telerik:RadRibbonTab Name="RibbonTabBarcodeScanner2" Header="Barcode Scanner 2" MinWidth="70">
@@ -79,6 +85,12 @@
                         <telerik:RadRibbonToggleButton Content="Counter" VerticalAlignment="Center"
                                                        MinWidth="75"
                                                        Name="RadRibbonToggleButtonCounter2" Click="RadRibbonToggleButtonCounter2_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonHID2" Content="HID"
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonHID2_OnClick"/>
                     </telerik:RadRibbonGroup>
                 </telerik:RadRibbonTab>
             </telerik:RadRibbonView>

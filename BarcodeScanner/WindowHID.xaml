@@ -1,0 +1,11 @@
+﻿<Window x:Class="BarcodeScanner.WindowHID"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WindowHID" Height="147" Width="560" Loaded="Window_Loaded" Closed="Window_Closed" Name="WindowsHID" SizeChanged="WindowsHID_SizeChanged">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Margin="10,0">HID :</TextBlock>
+            <TextBox x:Name="TextBoxHID" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+        </StackPanel>
+    </Grid>
+</Window>
