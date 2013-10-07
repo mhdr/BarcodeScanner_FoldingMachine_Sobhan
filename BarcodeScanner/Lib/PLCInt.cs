@@ -43,10 +43,10 @@ namespace BarcodeScanner.Lib
             }
             set
             {
-                Subscriber.Connect();
+                BufferedWriter.Connect();
                 BufferedWriter.WriteValue(value);
                 _value = value;
-                Subscriber.Disconnect();
+                BufferedWriter.Disconnect();
             }
         }
 

@@ -99,12 +99,12 @@ namespace BarcodeScanner
         public void Timer2_UI(BarcodeReader reader)
         {
             StopMachine2Motor();
-            StopBarcodeReader1();
-            BarcodeReader1Collection.Insert(0, reader);
+            StopBarcodeReader2();
+            BarcodeReader2Collection.Insert(0, reader);
 
-            Barcode1Counter = Machine1Counter;
+            Barcode2Counter = Machine2Counter;
 
-            Timer1.Dispose();
+            Timer2.Dispose();
         }
 
         private bool _barcodeScanner1Running;
