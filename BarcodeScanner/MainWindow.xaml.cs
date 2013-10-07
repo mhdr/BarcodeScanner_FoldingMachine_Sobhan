@@ -29,9 +29,14 @@ namespace BarcodeScanner
         public int Barcode2Counter { get; set; }
         private ObservableCollection<BarcodeReader> _barcodeReader1Collection;
         private ObservableCollection<BarcodeReader> _barcodeReader2Collection;
+        public int CorrectBarcodeScanCounter1 { get; set; }
+        public int CorrectBarcodeScanCounter2 { get; set; }
 
         private ListCollectionView _view;
         private ListCollectionView _view2;
+
+        private Timer Timer2=new Timer(200);
+
 
         public bool BarcodeScanner1Running
         {
@@ -44,70 +49,6 @@ namespace BarcodeScanner
             get { return _barcodeScanner1TemplateRunning; }
             set { _barcodeScanner1TemplateRunning = value; }
         }
-
-        public System.Threading.Timer Timer1;
-        Timer Timer2;
-
-        public int Barcode1InternalCounter { get; set; }
-        public int Barcode2InternalCounter { get; set; }
-
-        public void Timer1_Elapsed(object state)
-        {
-            //PLCInt plcInt = new PLCInt(Statics.Machine1CounterAI);
-            //Machine1Counter = plcInt.Value;
-
-            //if (Machine1Counter - Barcode1Counter > 0)
-            //{
-            //    Barcode1Counter += 1;
-            //    Lib.BarcodeReader reader = new BarcodeReader();
-            //    reader.Number = Barcode1Counter;
-            //    reader.Barcode = "";
-            //    ReadStatus readStatus = ReadStatus.Blank;
-            //    reader.Status = readStatus;
-
-            //    Action action = new Action(() => Timer1_UI(reader));
-            //    Dispatcher.BeginInvoke(action);
-            //}
-        }
-
-        public void Timer1_UI(BarcodeReader reader)
-        {
-            StopMachine1Motor();
-            StopBarcodeReader1();
-            BarcodeReader1Collection.Insert(0, reader);
-
-            Barcode1Counter = Machine1Counter;
-
-            Timer1.Dispose();
-        }
-
-        //public void Timer2_Elapsed(object state)
-        //{
-        //    PLCInt plcInt=new PLCInt(Statics.Counter2DB);
-        //    int realCounter = plcInt.Value;
-        //    System.Diagnostics.Debug.WriteLine(string.Format("Barcode 2 RealCounter : {0} ,Barcode 2 InternalCounter : {1}",realCounter,Barcode2InternalCounter));
-        //    if (Math.Abs(realCounter - Barcode2InternalCounter) > 1)
-        //    {
-        //        Barcode2Counter += 1;
-        //        Lib.BarcodeReader reader = new BarcodeReader();
-        //        reader.Number = Barcode2Counter;
-        //        reader.Barcode = "";
-        //        ReadStatus readStatus = ReadStatus.Blank;
-        //        reader.Status = readStatus;
-
-        //        Action action = new Action(() => Timer2_UI(reader));
-        //        Dispatcher.BeginInvoke(action);
-        //    }
-        //}
-
-        //public void Timer2_UI(BarcodeReader reader)
-        //{
-        //    StopMachine2Motor();
-        //    StopBarcodeReader2();
-        //    BarcodeReader2Collection.Insert(0, reader);
-
-        //    Timer2.Stop();
-        //}
 
         private bool _barcodeScanner1Running;
         private bool _barcodeScanner1TemplateRunning;
@@ -190,6 +131,32 @@ namespace BarcodeScanner
 
             RadRibbonToggleButtonCounter1.IsChecked = Properties.Settings.Default.Counter1Active;
             RadRibbonToggleButtonCounter2.IsChecked = Properties.Settings.Default.Counter2Active;
+
+            Timer2.Elapsed += Timer2_Elapsed;
+        }
+
+        void Timer2_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            Lib.BarcodeReader reader = new BarcodeReader();
+            reader.Number = Barcode2Counter;
+            reader.Barcode = "";
+            ReadStatus readStatus = ReadStatus.Blank;
+
+            PLCInt plcInt1 = new PLCInt(Statics.Counter2DB);
+            int realCounter = plcInt1.Value;
+
+            if (Math.Abs(realCounter - CorrectBarcodeScanCounter2) > 1)
+            {
+                readStatus = ReadStatus.Blank;
+                reader.Status = readStatus;
+                reader.Barcode = "";
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    BarcodeReader2Collection.Insert(0, reader);
+                    StopMachine2Motor();
+                    StopBarcodeReader2();                    
+                }));
+            }
         }
 
         void formReadBarcode_Barcode2Read(object sender, BarcodeReadEventArgs e)
@@ -205,9 +172,7 @@ namespace BarcodeScanner
             if (BarcodeScanner2Running)
             {
                 Barcode2Counter += 1;
-                Barcode2InternalCounter += 1;
-                PLCInt plcInt=new PLCInt(Statics.Barcode2DB);
-                plcInt.Value = (ushort) Barcode2InternalCounter;
+                CorrectBarcodeScanCounter2++;
 
                 string barcode2 = e.Code;
 
@@ -215,6 +180,23 @@ namespace BarcodeScanner
                 reader.Number = Barcode2Counter;
                 reader.Barcode = barcode2;
                 ReadStatus readStatus = ReadStatus.Blank;
+
+                //PLCInt plcInt2 = new PLCInt(Statics.CorrectBarcodeScanCounter2);
+                //plcInt2.Value = (ushort) CorrectBarcodeScanCounter2;
+
+                //PLCInt plcInt1 = new PLCInt(Statics.Counter2DB);
+                //int realCounter = plcInt1.Value;
+
+                //if (Math.Abs(realCounter - CorrectBarcodeScanCounter2) > 1)
+                //{
+                //    readStatus = ReadStatus.Blank;
+                //    reader.Status = readStatus;
+                //    reader.Barcode = "";
+                //    BarcodeReader2Collection.Insert(0, reader);
+                //    StopMachine2Motor();
+                //    StopBarcodeReader2();
+                //    return;
+                //}
 
                 if (barcode2 == BarcodeScanner2Template)
                 {
@@ -228,21 +210,9 @@ namespace BarcodeScanner
                     StopMachine2Motor();
                     StopBarcodeReader2();
                 }
-
-                PLCInt plcInt2 = new PLCInt(Statics.Counter2DB);
-                int realCounter = plcInt2.Value;
-                System.Diagnostics.Debug.WriteLine(string.Format("Barcode 2 RealCounter : {0} ,Barcode 2 InternalCounter : {1}", realCounter, Barcode2InternalCounter));
-                if (Math.Abs(realCounter - Barcode2InternalCounter) > 1)
-                {
-                    reader.Number = Barcode2Counter;
-                    reader.Barcode = "";
-                    reader.Status = ReadStatus.Blank;
-                    StopMachine2Motor();
-                    StopBarcodeReader2();
-                }
-
-
                 reader.Status = readStatus;
+
+
                 BarcodeReader2Collection.Insert(0, reader);
 
             }
@@ -340,11 +310,6 @@ namespace BarcodeScanner
                     Machine1Mode = WorkMode.WithoutCounter;
                 }
 
-                if (Machine1Mode == WorkMode.WithCounter)
-                {
-                    Timer1 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 1000);
-                }
-
                 StartMachine1Motor();
             }
         }
@@ -359,9 +324,6 @@ namespace BarcodeScanner
                     return;
                 }
 
-                PLCInt plcInt=new PLCInt(Statics.Counter2DB);
-                Barcode2InternalCounter = plcInt.Value;
-
                 BarcodeScanner2Running = true;
                 RibbonButtonStart2.IsEnabled = false;
                 RibbonButtonStop2.IsEnabled = true;
@@ -375,36 +337,16 @@ namespace BarcodeScanner
                     Machine2Mode = WorkMode.WithoutCounter;
                 }
 
-                //if (Machine2Mode == WorkMode.WithCounter)
-                //{
-                //    Timer2 = new Timer();
-                //    Timer2.Elapsed += Timer2_Elapsed;
-                //    Timer2.Start();
-                //}
+                PLCInt plcInt1=new PLCInt(Statics.Counter2DB);
+                CorrectBarcodeScanCounter2 = plcInt1.Value;
+
+                Timer2.Start();
+                //PLCInt plcInt2 = new PLCInt(Statics.CorrectBarcodeScanCounter2);
+                //plcInt2.Value = (ushort) CorrectBarcodeScanCounter2;
 
                 StartMachine2Motor();
             }
         }
-
-        //void Timer2_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        //{
-        //    PLCInt plcInt = new PLCInt(Statics.Counter2DB);
-        //    int realCounter = plcInt.Value;
-        //    System.Diagnostics.Debug.WriteLine(string.Format("Barcode 2 RealCounter : {0} ,Barcode 2 InternalCounter : {1}", realCounter, Barcode2InternalCounter));
-        //    if (realCounter - Barcode2InternalCounter > 1)
-        //    {
-        //        Barcode2Counter += 1;
-        //        Lib.BarcodeReader reader = new BarcodeReader();
-        //        reader.Number = Barcode2Counter;
-        //        reader.Barcode = "";
-        //        ReadStatus readStatus = ReadStatus.Blank;
-        //        reader.Status = readStatus;
-
-
-        //        Action action = new Action(() => Timer2_UI(reader));
-        //        Dispatcher.BeginInvoke(action);
-        //    }
-        //}
 
         private void ShowMsgOnStatusBar(string msg)
         {
@@ -440,6 +382,7 @@ namespace BarcodeScanner
             BarcodeScanner2Running = false;
             RibbonButtonStart2.IsEnabled = true;
             RibbonButtonStop2.IsEnabled = false;
+            Timer2.Stop();
         }
 
         private void RibbonButtonSetTemplate_OnClick(object sender, RoutedEventArgs e)
@@ -471,20 +414,6 @@ namespace BarcodeScanner
         private void RibbonButtonStart2_OnClick(object sender, RoutedEventArgs e)
         {
             StartBarcodeReader2();
-
-            //if (!BarcodeScanner2TemplateRunning)
-            //{
-            //    if (string.IsNullOrEmpty(BarcodeScanner2Template))
-            //    {
-            //        ShowMsgOnStatusBar("You have to set a Template first");
-            //        return;
-            //    }
-
-            //    BarcodeScanner2Running = true;
-            //    RibbonButtonStart2.IsEnabled = false;
-            //    RibbonButtonStop2.IsEnabled = true;
-            //}
-
         }
 
         private void RibbonButtonStop2_OnClick(object sender, RoutedEventArgs e)

@@ -12,13 +12,8 @@ namespace BarcodeScanner.Lib
         public static string Machine2Motor = @"\\localhost\Project01\OPC\PLCS71200\Device1\Machine2Motor";
         public static string Counter1DB = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter1DB";
         public static string Counter2DB = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter2DB";
-        public static string Machine1CounterSensor = @"\\localhost\Project01\OPC\PLCS71200\Device1\Machine1CounterSensor";
-        public static string Machine2CounterSensor = @"\\localhost\Project01\OPC\PLCS71200\Device1\Machine2CounterSensor";
         public static string Counter1Reset = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter1Reset";
         public static string Counter2Reset = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter2Reset";
-
-        //public static string Machine1CounterAI = @"\\localhost\Project01\OPC\PLCS71200\Device1\Machine1CounterAI";
-        public static string Barcode1DB = @"\\localhost\Project01\OPC\PLCS71200\Device1\Barcode1Counter";
-        public static string Barcode2DB = @"\\localhost\Project01\OPC\PLCS71200\Device1\Barcode2Counter";
+        public static string CorrectBarcodeScanCounter2 = @"\\localhost\Project01\OPC\PLCS71200\Device1\CorrectBarcodeScanCounter2";
     }
 }

@@ -129,7 +129,7 @@
                                  RowDetailsVisibilityMode="Collapsed" HorizontalContentAlignment="Stretch" ShowGroupPanel="True"
                                  ClipboardCopyMode="Cells"
                                  ItemsSource="{Binding Source={StaticResource BarcodeReader1Source}}"
-                                     RowStyleSelector="{StaticResource GridViewStyle}">
+>
                     <telerik:RadGridView.Columns>
                         
                         <telerik:GridViewDataColumn IsReadOnly="True"
@@ -160,8 +160,7 @@
                                  EnableColumnVirtualization="True" EnableRowVirtualization="True"
                                  RowDetailsVisibilityMode="Collapsed" HorizontalContentAlignment="Stretch" ShowGroupPanel="True"
                                  ClipboardCopyMode="Cells"
-                                 ItemsSource="{Binding Source={StaticResource BarcodeReader2Source}}"
-                                     RowStyleSelector="{StaticResource GridViewStyle}">
+                                 ItemsSource="{Binding Source={StaticResource BarcodeReader2Source}}">
                     <telerik:RadGridView.Columns>
 
                         <telerik:GridViewDataColumn IsReadOnly="True"
