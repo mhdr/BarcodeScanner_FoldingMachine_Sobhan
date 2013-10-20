@@ -1,0 +1,13 @@
+﻿<Window x:Class="BarcodeScanner.WindowSystemManagerPath"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="WindowSystemManagerPath" Height="139" Width="661" Loaded="WindowSystemManagerPath_OnLoaded">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Margin="10,0">Path :</TextBlock>
+            <TextBox x:Name="TextBoxPath" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+            <telerik:RadButton Name="ButtonBrowse" Content="Browse..." Click="ButtonBrowse_OnClick" Width="75" Height="30"/>
+        </StackPanel>
+    </Grid>
+</Window>

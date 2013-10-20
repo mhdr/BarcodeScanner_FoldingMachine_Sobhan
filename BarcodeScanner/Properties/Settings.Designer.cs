@@ -46,5 +46,17 @@ namespace BarcodeScanner.Properties {
                 this["Counter2Active"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SystemManagerPath {
+            get {
+                return ((string)(this["SystemManagerPath"]));
+            }
+            set {
+                this["SystemManagerPath"] = value;
+            }
+        }
     }
 }

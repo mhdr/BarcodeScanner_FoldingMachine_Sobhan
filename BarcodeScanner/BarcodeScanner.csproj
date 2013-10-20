@@ -133,6 +133,9 @@
     <Compile Include="WindowHID.xaml.cs">
       <DependentUpon>WindowHID.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowSystemManagerPath.xaml.cs">
+      <DependentUpon>WindowSystemManagerPath.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,6 +166,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WindowHID.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowSystemManagerPath.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -113,6 +114,25 @@ namespace BarcodeScanner
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            if (Properties.Settings.Default.SystemManagerPath.Length == 0)
+            {
+                WindowSystemManagerPath windowSystemManagerPath=new WindowSystemManagerPath();
+                windowSystemManagerPath.ShowDialog();
+            }
+
+            if (File.Exists(Properties.Settings.Default.SystemManagerPath))
+            {
+                var processes =
+                    System.Diagnostics.Process.GetProcessesByName(
+                        System.IO.Path.GetFileNameWithoutExtension(Properties.Settings.Default.SystemManagerPath));
+
+                if (!processes.Any(x => x.MainModule.FileName == Properties.Settings.Default.SystemManagerPath))
+                {
+                    System.Diagnostics.Process.Start(Properties.Settings.Default.SystemManagerPath);
+                }
+ 
+            }
+
             // Reset Counters
             PLCBool counter1Reset = new PLCBool(Statics.Counter1Reset);
             counter1Reset.Value = true;
@@ -533,6 +553,14 @@ namespace BarcodeScanner
         {
             WindowHID windowHid = new WindowHID(2);
             windowHid.ShowDialog();
+        }
+
+        private void RibbonButtonSystemManager_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = false;
+            WindowSystemManagerPath windowSystemManagerPath=new WindowSystemManagerPath();
+            windowSystemManagerPath.ShowDialog();
+            this.Topmost = true;
         }
     }
 }
