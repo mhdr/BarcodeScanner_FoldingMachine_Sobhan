@@ -116,8 +116,10 @@ namespace BarcodeScanner
         {
             if (Properties.Settings.Default.SystemManagerPath.Length == 0)
             {
+                this.Topmost = false;
                 WindowSystemManagerPath windowSystemManagerPath=new WindowSystemManagerPath();
                 windowSystemManagerPath.ShowDialog();
+                this.Topmost = true;
             }
 
             if (File.Exists(Properties.Settings.Default.SystemManagerPath))
@@ -545,14 +547,18 @@ namespace BarcodeScanner
 
         private void RibbonButtonHID1_OnClick(object sender, RoutedEventArgs e)
         {
+            this.Topmost = false;
             WindowHID windowHid = new WindowHID(1);
             windowHid.ShowDialog();
+            this.Topmost = true;
         }
 
         private void RibbonButtonHID2_OnClick(object sender, RoutedEventArgs e)
         {
+            this.Topmost = false;
             WindowHID windowHid = new WindowHID(2);
             windowHid.ShowDialog();
+            this.Topmost = true;
         }
 
         private void RibbonButtonSystemManager_OnClick(object sender, RoutedEventArgs e)
