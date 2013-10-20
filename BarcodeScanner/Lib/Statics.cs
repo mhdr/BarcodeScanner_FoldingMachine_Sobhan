@@ -14,6 +14,7 @@ namespace BarcodeScanner.Lib
         public static string Counter2DB = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter2DB";
         public static string Counter1Reset = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter1Reset";
         public static string Counter2Reset = @"\\localhost\Project01\OPC\PLCS71200\Device1\Counter2Reset";
-        public static string CorrectBarcodeScanCounter2 = @"\\localhost\Project01\OPC\PLCS71200\Device1\CorrectBarcodeScanCounter2";
+        //public static string CorrectBarcodeScanCounter2
+        //    = @"\\localhost\Project01\OPC\PLCS71200\Device1\CorrectBarcodeScanCounter2";
     }
 }

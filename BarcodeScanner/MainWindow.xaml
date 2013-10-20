@@ -49,7 +49,7 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonToggleButton Content="Counter" Name="RadRibbonToggleButtonCounter1" MinWidth="75"
+                        <telerik:RadRibbonToggleButton Content="Fast Mode" Name="RadRibbonToggleButtonCounter1" MinWidth="75"
                                                        VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                                        Click="RadRibbonToggleButtonCounter1_OnClick"/>
                     </telerik:RadRibbonGroup>
@@ -82,7 +82,7 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonToggleButton Content="Counter" VerticalAlignment="Center"
+                        <telerik:RadRibbonToggleButton Content="Fast Mode" VerticalAlignment="Center"
                                                        MinWidth="75"
                                                        Name="RadRibbonToggleButtonCounter2" Click="RadRibbonToggleButtonCounter2_OnClick"/>
                     </telerik:RadRibbonGroup>
@@ -149,7 +149,12 @@
                         DataMemberBinding="{Binding Status}"
                         MinWidth="100" Header="Status" HeaderTextAlignment="Center">
                         </telerik:GridViewDataColumn>
-                        
+
+                        <telerik:GridViewDataColumn IsReadOnly="True"
+                        TextAlignment="Center"
+                        DataMemberBinding="{Binding Date}"
+                        MinWidth="200" Header="Date" HeaderTextAlignment="Center">
+                        </telerik:GridViewDataColumn>
                     </telerik:RadGridView.Columns>
                 </telerik:RadGridView>
 
@@ -181,6 +186,11 @@
                         MinWidth="100" Header="Status" HeaderTextAlignment="Center">
                         </telerik:GridViewDataColumn>
 
+                        <telerik:GridViewDataColumn IsReadOnly="True"
+                        TextAlignment="Center"
+                        DataMemberBinding="{Binding Date}"
+                        MinWidth="200" Header="Date" HeaderTextAlignment="Center">
+                        </telerik:GridViewDataColumn>
                     </telerik:RadGridView.Columns>
                 </telerik:RadGridView>
             </Grid>

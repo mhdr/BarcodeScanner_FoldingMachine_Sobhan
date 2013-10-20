@@ -81,6 +81,7 @@ namespace BarcodeScanner
         void Device_KeyboardInput(object sender, KeyboardInputEventArgs e)
         {
             var device = devices.Find(x => x.Handle == e.Device);
+   
             int length = device.DeviceName.Length;
 
             string deviceNameAfterReplace = device.DeviceName.Substring(0, length - 1);
