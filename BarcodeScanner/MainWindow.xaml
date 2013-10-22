@@ -6,14 +6,14 @@
     <Window.Resources>
         <CollectionViewSource x:Key="BarcodeReader1Source"/>
         <CollectionViewSource x:Key="BarcodeReader2Source"/>
-        
+
         <lib:BarcodeGridViewStyle x:Key="GridViewStyle">
             <lib:BarcodeGridViewStyle.MismatchStyle>
                 <Style TargetType="telerik:GridViewRow">
                     <Setter Property="Background" Value="Red"/>
                 </Style>
             </lib:BarcodeGridViewStyle.MismatchStyle>
-            
+
             <lib:BarcodeGridViewStyle.BlankStyle>
                 <Style TargetType="telerik:GridViewRow">
                     <Setter Property="Background" Value="Yellow"/>
@@ -136,7 +136,7 @@
                                  ItemsSource="{Binding Source={StaticResource BarcodeReader1Source}}"
 >
                     <telerik:RadGridView.Columns>
-                        
+
                         <telerik:GridViewDataColumn IsReadOnly="True"
                         TextAlignment="Center"
                         DataMemberBinding="{Binding Barcode}"
@@ -202,6 +202,17 @@
         </DockPanel>
 
         <StatusBar Name="StatusBarBottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"
-                   MouseDoubleClick="StatusBarBottom_OnMouseDoubleClick" FontWeight="Bold"/>
+                   MouseDoubleClick="StatusBarBottom_OnMouseDoubleClick" FontWeight="Bold">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>PLC 1 Counter : </TextBlock>
+                <TextBlock Name="TextBoxPLC1Counter" Margin="0,0,20,0"></TextBlock>
+                <TextBlock>PC 1 Counter : </TextBlock>
+                <TextBlock Name="TextBoxPC1Counter" Margin="0,0,20,0"></TextBlock>
+                <TextBlock>PLC 2 Counter : </TextBlock>
+                <TextBlock Name="TextBoxPLC2Counter" Margin="0,0,20,0"></TextBlock>
+                <TextBlock>PC 2 Counter : </TextBlock>
+                <TextBlock Name="TextBoxPC2Counter" Margin="0,0,20,0"></TextBlock>
+            </StackPanel>
+        </StatusBar>
     </Grid>
 </Window>
