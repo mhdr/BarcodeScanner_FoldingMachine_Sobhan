@@ -29,49 +29,60 @@
         
         <DockPanel>
             <telerik:RadRibbonView Name="RibbonViewMain" DockPanel.Dock="Top" HorizontalAlignment="Stretch" ApplicationName="Barcode Scanner">
-                <telerik:RadRibbonTab Name="RibbonTabBarcodeScanner1" Header="Tools" MinWidth="70">
+                <telerik:RadRibbonTab Name="RibbonTabTools" Header="Tools">
                     <telerik:RadRibbonGroup>
                         <telerik:RadRibbonButton Name="RibbonButtonHID" Content="HIDs" 
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonHID_OnClick"/>
                     </telerik:RadRibbonGroup>
-                    
+
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonStart" Content="Start 1" 
+                        <telerik:RadRibbonButton Name="RibbonButtonSettings" Content="Settings" 
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonSettings_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
+                </telerik:RadRibbonTab>
+
+                <telerik:RadRibbonTab Name="RibbonTabBarcodeScanner1" Header="Scanner 1">
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonStart" Content="Start" 
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonStart_OnClick"/>
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonStop" Content="Stop 1" IsEnabled="False"
+                        <telerik:RadRibbonButton Name="RibbonButtonStop" Content="Stop" IsEnabled="False"
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonStop_OnClick"/>
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonSetTemplate" Content="Set Template 1"
+                        <telerik:RadRibbonButton Name="RibbonButtonSetTemplate" Content="Set Template"
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonSetTemplate_OnClick"/>
                     </telerik:RadRibbonGroup>
+                </telerik:RadRibbonTab>
+
+                <telerik:RadRibbonTab Name="RibbonTabBarcodeScanner2" Header="Scanner 2">
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonStart2" Content="Start 2" 
+                        <telerik:RadRibbonButton Name="RibbonButtonStart2" Content="Start" 
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonStart2_OnClick"/>
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonStop2" Content="Stop 2" IsEnabled="False"
+                        <telerik:RadRibbonButton Name="RibbonButtonStop2" Content="Stop" IsEnabled="False"
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonStop2_OnClick"/>
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonSetTemplate2" Content="Set Template 2"
+                        <telerik:RadRibbonButton Name="RibbonButtonSetTemplate2" Content="Set Template"
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonSetTemplate2_OnClick"/>
                     </telerik:RadRibbonGroup>
-
                 </telerik:RadRibbonTab>
             </telerik:RadRibbonView>
 

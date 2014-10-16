@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using BarcodeScanner.Lib;
+using Application = System.Windows.Forms.Application;
+using Path = System.IO.Path;
 
 namespace BarcodeScanner
 {
@@ -448,6 +451,12 @@ namespace BarcodeScanner
         {
             WindowHID windowHid=new WindowHID();
             windowHid.Show();
+        }
+
+        private void RibbonButtonSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            string path = Path.Combine(Application.StartupPath, "Config.json");
+            Process.Start("notepad", path);
         }
     }
 }
