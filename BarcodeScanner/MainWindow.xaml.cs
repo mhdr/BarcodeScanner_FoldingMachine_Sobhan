@@ -165,6 +165,8 @@ namespace BarcodeScanner
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            Config config = Config.LoadConfig();
+
             // Reset Counters
             PLCBool counter1Reset = new PLCBool(Statics.Counter1Reset);
             counter1Reset.Value = true;
@@ -275,7 +277,7 @@ namespace BarcodeScanner
 
             if (Machine1Mode == WorkMode.WithCounter)
             {
-                Timer1 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 1000);
+                Timer1 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 50);
             }
         }
 
@@ -408,7 +410,7 @@ namespace BarcodeScanner
 
             if (Machine2Mode == WorkMode.WithCounter)
             {
-                Timer2 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 1000);
+                Timer2 = new System.Threading.Timer(Timer1_Elapsed, new object(), 0, 50);
             }
 
 
@@ -443,6 +445,12 @@ namespace BarcodeScanner
                 BarcodeScanner2TemplateRunning = true;
                 RibbonButtonSetTemplate2.IsEnabled = false;
             }
+        }
+
+        private void RibbonButtonHID_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowHID windowHid=new WindowHID();
+            windowHid.Show();
         }
     }
 }

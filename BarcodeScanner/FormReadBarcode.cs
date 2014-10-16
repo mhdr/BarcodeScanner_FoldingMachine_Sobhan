@@ -19,6 +19,9 @@ namespace BarcodeScanner
         public event EventHandler<Lib.BarcodeReadEventArgs> Barcode1Read;
         public event EventHandler<BarcodeReadEventArgs> Barcode2Read;
 
+        private string HID1;
+        private string HID2;
+
         protected virtual void OnBarcode2Read(BarcodeReadEventArgs e)
         {
             EventHandler<BarcodeReadEventArgs> handler = Barcode2Read;
@@ -55,6 +58,10 @@ namespace BarcodeScanner
         {
             Device.RegisterDevice(UsagePage.Generic, UsageId.GenericKeyboard, DeviceFlags.None);
             Device.KeyboardInput += Device_KeyboardInput;
+
+            Config config = Config.LoadConfig();
+            HID1 = string.Format("{0}\0", config.BarcodeReader1HID);
+            HID2 = string.Format("{0}\0", config.BarcodeReader2HID);
         }
 
         void Device_KeyboardInput(object sender, KeyboardInputEventArgs e)
@@ -63,8 +70,10 @@ namespace BarcodeScanner
 
             var device = devices.Find(x => x.Handle == e.Device);
 
-            if (device.DeviceName ==
-                "\\\\?\\HID#VID_0000&PID_0001#6&29057869&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
+            // Correct HID Format
+            // "\\\\?\\HID#VID_0000&PID_0001#6&1a1f2f6&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0
+
+            if (device.DeviceName ==HID1)
             {
                 if (e.State == KeyState.KeyUp)
                 {
@@ -79,9 +88,8 @@ namespace BarcodeScanner
                         Barcode1 += barcode;
                     }
                 }
-            }
-            else if (device.DeviceName ==
-    "\\\\?\\HID#VID_0000&PID_0001#6&1a1f2f6&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}\0")
+            }                
+            else if (device.DeviceName ==HID2)
             {
                 if (e.State == KeyState.KeyUp)
                 {
