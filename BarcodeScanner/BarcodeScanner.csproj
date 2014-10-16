@@ -120,7 +120,6 @@
     <Compile Include="Lib\PLCBool.cs" />
     <Compile Include="Lib\PLCInt.cs" />
     <Compile Include="Lib\Statics.cs" />
-    <Compile Include="Lib\WorkMode.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

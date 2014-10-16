@@ -15,6 +15,7 @@ namespace BarcodeScanner.Lib
         private int _number;
         private string _barcode;
         private ReadStatus _status;
+        private DateTime _date;
 
         public int Number
         {
@@ -36,6 +37,12 @@ namespace BarcodeScanner.Lib
         {
             get { return _status; }
             set { _status = value; }
+        }
+
+        public DateTime Date
+        {
+            get { return _date; }
+            set { _date = value; }
         }
 
         [NotifyPropertyChangedInvocator]
