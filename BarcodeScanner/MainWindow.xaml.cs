@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using BarcodeScanner.Lib;
+using Telerik.Windows.Controls.GridView;
 using Application = System.Windows.Forms.Application;
 using Path = System.IO.Path;
 
@@ -41,6 +42,8 @@ namespace BarcodeScanner
 
         private DispatcherTimer Timer11 = new DispatcherTimer(DispatcherPriority.Send);
         private DispatcherTimer Timer22 = new DispatcherTimer(DispatcherPriority.Send);
+
+        private int LastRealCounter1=0;
 
         public bool BarcodeScanner1Running
         {
@@ -130,7 +133,7 @@ namespace BarcodeScanner
             BindGridViewBarcodeReader1();
             BindGridViewBarcodeReader2();
 
-            Timer11.Interval = new TimeSpan(0, 0, 0, 0, 2);
+            Timer11.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             Timer22.Interval = new TimeSpan(0, 0, 0, 0, 2);
             Timer11.IsEnabled = true;
             Timer22.IsEnabled = true;
@@ -176,26 +179,47 @@ namespace BarcodeScanner
                 return;
             }
 
-            Lib.BarcodeReader reader = new BarcodeReader();
-            reader.Number = Barcode1Counter;
-            reader.Barcode = "";
-            ReadStatus readStatus = ReadStatus.Blank;
-
             PLCInt plcInt1 = new PLCInt(Statics.Counter1DB);
             int realCounter = plcInt1.Value;
 
-            if (Math.Abs(realCounter - CorrectBarcodeScanCounter1) > 1)
+            if (realCounter > LastRealCounter1)
             {
-                readStatus = ReadStatus.Blank;
-                reader.Status = readStatus;
+                Thread thread=new Thread(()=>CheckIfBarcode1IsBlank(realCounter));
+                thread.Start();
+
+                // prepare for next cycle
+                LastRealCounter1 = realCounter;
+            }
+
+
+        }
+
+        private void CheckIfBarcode1IsBlank(int realCounter)
+        {
+            object objLock = realCounter;
+
+            lock (objLock)
+            {
+                Thread.Sleep(5 * 1000);
+
+                Lib.BarcodeReader reader = new BarcodeReader();
+                reader.Number = Barcode1Counter;
                 reader.Barcode = "";
-                reader.Date = DateTime.Now;
-                Dispatcher.BeginInvoke(new Action(() =>
+                ReadStatus readStatus = ReadStatus.Blank;
+
+                if (Math.Abs(realCounter - CorrectBarcodeScanCounter1) > 0)
                 {
-                    BarcodeReader1Collection.Insert(0, reader);
-                    StopMachine1Motor();
-                    StopBarcodeReader1();
-                }));
+                    readStatus = ReadStatus.Blank;
+                    reader.Status = readStatus;
+                    reader.Barcode = "";
+                    reader.Date = DateTime.Now;
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        BarcodeReader1Collection.Insert(0, reader);
+                        StopMachine1Motor();
+                        StopBarcodeReader1();
+                    }));
+                }
             }
         }
 
@@ -331,6 +355,7 @@ namespace BarcodeScanner
 
                 PLCInt plcInt1 = new PLCInt(Statics.Counter1DB);
                 CorrectBarcodeScanCounter1 = plcInt1.Value;
+                LastRealCounter1 = CorrectBarcodeScanCounter1;
 
                 //Timer1.Start();
                 Timer11.IsEnabled = true;
