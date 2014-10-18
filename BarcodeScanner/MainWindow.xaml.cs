@@ -44,6 +44,7 @@ namespace BarcodeScanner
         private DispatcherTimer Timer22 = new DispatcherTimer(DispatcherPriority.Send);
 
         private int LastRealCounter1=0;
+        private string LastBarcode1 = "";
 
         public bool BarcodeScanner1Running
         {
@@ -184,7 +185,7 @@ namespace BarcodeScanner
 
             if (realCounter > LastRealCounter1)
             {
-                Thread thread=new Thread(()=>CheckIfBarcode1IsBlank(realCounter));
+                Thread thread=new Thread(()=>InspectBarcode1(realCounter));
                 thread.Start();
 
                 // prepare for next cycle
@@ -194,32 +195,75 @@ namespace BarcodeScanner
 
         }
 
-        private void CheckIfBarcode1IsBlank(int realCounter)
+        private void InspectBarcode1(int realCounter)
         {
             object objLock = realCounter;
 
             lock (objLock)
             {
-                Thread.Sleep(5 * 1000);
+                Thread.Sleep(2 * 1000);
+
+                string barcode1 = LastBarcode1;
 
                 Lib.BarcodeReader reader = new BarcodeReader();
-                reader.Number = Barcode1Counter;
-                reader.Barcode = "";
                 ReadStatus readStatus = ReadStatus.Blank;
 
-                if (Math.Abs(realCounter - CorrectBarcodeScanCounter1) > 0)
+                if (barcode1 != "")
                 {
-                    readStatus = ReadStatus.Blank;
+                    Barcode1Counter += 1;
+                    CorrectBarcodeScanCounter1++;
+
+                    
+                    reader.Number = Barcode1Counter;
+                    reader.Barcode = barcode1;
+
+                    if (barcode1 == BarcodeScanner1Template)
+                    {
+                        readStatus = ReadStatus.OK;
+                    }
+
+                    if (barcode1 != BarcodeScanner1Template)
+                    {
+                        readStatus = ReadStatus.Mismatch;
+                        reader.Number = Barcode1Counter - 1;
+
+                        Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            StopMachine1Motor();
+                            StopBarcodeReader1();                            
+                        }));
+                    }
                     reader.Status = readStatus;
-                    reader.Barcode = "";
                     reader.Date = DateTime.Now;
+
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
                         BarcodeReader1Collection.Insert(0, reader);
-                        StopMachine1Motor();
-                        StopBarcodeReader1();
                     }));
                 }
+                else
+                {
+                    reader = new BarcodeReader();
+                    reader.Number = Barcode1Counter;
+                    reader.Barcode = "";
+                    readStatus = ReadStatus.Blank;
+
+                    if (Math.Abs(realCounter - CorrectBarcodeScanCounter1) > 0)
+                    {
+                        readStatus = ReadStatus.Blank;
+                        reader.Status = readStatus;
+                        reader.Barcode = "";
+                        reader.Date = DateTime.Now;
+                        Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            BarcodeReader1Collection.Insert(0, reader);
+                            StopMachine1Motor();
+                            StopBarcodeReader1();
+                        }));
+                    }    
+                }               
+
+                LastBarcode1 = "";
             }
         }
 
@@ -280,35 +324,40 @@ namespace BarcodeScanner
 
             if (BarcodeScanner1Running)
             {
-                Barcode1Counter += 1;
-                CorrectBarcodeScanCounter1++;
-
-                string barcode1 = e.Code;
-
-                Lib.BarcodeReader reader = new BarcodeReader();
-                reader.Number = Barcode1Counter;
-                reader.Barcode = barcode1;
-                ReadStatus readStatus = ReadStatus.Blank;
-
-                if (barcode1 == BarcodeScanner1Template)
-                {
-                    readStatus = ReadStatus.OK;
-                }
-
-                if (barcode1 != BarcodeScanner1Template)
-                {
-                    readStatus = ReadStatus.Mismatch;
-                    reader.Number = Barcode1Counter - 1;
-
-                    StopMachine1Motor();
-                    StopBarcodeReader1();
-                }
-                reader.Status = readStatus;
-                reader.Date = DateTime.Now;
-
-                BarcodeReader1Collection.Insert(0, reader);
-
+                LastBarcode1 = e.Code;
             }
+
+            //if (BarcodeScanner1Running)
+            //{
+            //    Barcode1Counter += 1;
+            //    CorrectBarcodeScanCounter1++;
+
+            //    string barcode1 = e.Code;
+
+            //    Lib.BarcodeReader reader = new BarcodeReader();
+            //    reader.Number = Barcode1Counter;
+            //    reader.Barcode = barcode1;
+            //    ReadStatus readStatus = ReadStatus.Blank;
+
+            //    if (barcode1 == BarcodeScanner1Template)
+            //    {
+            //        readStatus = ReadStatus.OK;
+            //    }
+
+            //    if (barcode1 != BarcodeScanner1Template)
+            //    {
+            //        readStatus = ReadStatus.Mismatch;
+            //        reader.Number = Barcode1Counter - 1;
+
+            //        StopMachine1Motor();
+            //        StopBarcodeReader1();
+            //    }
+            //    reader.Status = readStatus;
+            //    reader.Date = DateTime.Now;
+
+            //    BarcodeReader1Collection.Insert(0, reader);
+
+            //}
         }
         private void RibbonButtonStart_OnClick(object sender, RoutedEventArgs e)
         {
