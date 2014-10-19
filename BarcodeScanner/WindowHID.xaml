@@ -16,8 +16,10 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <telerik:RadButton Name="ButtonStep1" Content="Step 1" Width="100" Height="30" Margin="20 0 20 0" Click="ButtonStep1_OnClick"/>
-                <telerik:RadButton Name="ButtonStep2" Content="Step 2" Width="100" Height="30" Margin="20 0 20 0" Click="ButtonStep2_OnClick"/>
+                <telerik:RadButton Name="ButtonStep1" Content="Step 1" Width="100" Height="30" Margin="20 0 20 0" 
+                                   Click="ButtonStep1_OnClick" ToolTip="You should disconnect barcode reader from computer before pressing this button"/>
+                <telerik:RadButton Name="ButtonStep2" Content="Step 2" Width="100" Height="30" Margin="20 0 20 0" 
+                                   Click="ButtonStep2_OnClick" ToolTip="You should connect barcode reader to computer before pressing this button"/>
             </StackPanel>
     </Grid>
 </Window>

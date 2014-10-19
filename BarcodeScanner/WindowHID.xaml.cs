@@ -40,9 +40,14 @@ namespace BarcodeScanner
         {
             devicesAfter = Device.GetDevices();
             string hid = GetLastDevice().Trim();
-            hid= hid.Replace(@"\H", @"\\H");
-            hid = string.Format(@"\\{0}", hid);
-            TextBoxHID.Text = hid;
+
+            if (hid.Length > 0)
+            {
+                hid = hid.Replace(@"\H", @"\\H");
+                hid = string.Format(@"\\{0}", hid);
+                TextBoxHID.Text = hid;
+            }
+
             ButtonStep1.IsEnabled = true;
         }
 
