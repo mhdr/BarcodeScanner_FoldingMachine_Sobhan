@@ -514,8 +514,8 @@ namespace BarcodeScanner
         private void LoadConfig()
         {
             Config config = Config.LoadConfig();
-            formReadBarcode.HID1 = config.BarcodeReader1HID;
-            formReadBarcode.HID2 = config.BarcodeReader2HID;
+            formReadBarcode.HID1 = string.Format("{0}\0", config.BarcodeReader1HID);
+            formReadBarcode.HID2 = string.Format("{0}\0", config.BarcodeReader2HID);
             this.DelayAfterIncreasingCounter1 = config.DelayAfterIncreasingCounter1;
             this.CheckCounter1Timer = config.CheckCounter1Timer;
             this.CheckCounter2Timer = config.CheckCounter2Timer;
