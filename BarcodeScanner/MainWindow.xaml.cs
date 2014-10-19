@@ -46,6 +46,13 @@ namespace BarcodeScanner
         private int LastRealCounter1=0;
         private string LastBarcode1 = "";
 
+        // Config
+        public int WaitAfterIncreasingCounter1;
+        public int CheckCounter1Timer;
+        public int CheckCounter2Timer;
+
+        //
+
         public bool BarcodeScanner1Running
         {
             get { return _barcodeScanner1Running; }
@@ -115,6 +122,8 @@ namespace BarcodeScanner
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            LoadConfig();
+
             // Reset Counters
             PLCBool counter1Reset = new PLCBool(Statics.Counter1Reset);
             counter1Reset.Value = true;
@@ -191,8 +200,6 @@ namespace BarcodeScanner
                 // prepare for next cycle
                 LastRealCounter1 = realCounter;
             }
-
-
         }
 
         private void InspectBarcode1(int realCounter)
@@ -201,7 +208,7 @@ namespace BarcodeScanner
 
             lock (objLock)
             {
-                Thread.Sleep(2 * 1000);
+                Thread.Sleep(this.WaitAfterIncreasingCounter1);
 
                 string barcode1 = LastBarcode1;
 
@@ -261,8 +268,9 @@ namespace BarcodeScanner
                             StopBarcodeReader1();
                         }));
                     }    
-                }               
+                }
 
+                // prepare for next cycle
                 LastBarcode1 = "";
             }
         }
@@ -326,38 +334,6 @@ namespace BarcodeScanner
             {
                 LastBarcode1 = e.Code;
             }
-
-            //if (BarcodeScanner1Running)
-            //{
-            //    Barcode1Counter += 1;
-            //    CorrectBarcodeScanCounter1++;
-
-            //    string barcode1 = e.Code;
-
-            //    Lib.BarcodeReader reader = new BarcodeReader();
-            //    reader.Number = Barcode1Counter;
-            //    reader.Barcode = barcode1;
-            //    ReadStatus readStatus = ReadStatus.Blank;
-
-            //    if (barcode1 == BarcodeScanner1Template)
-            //    {
-            //        readStatus = ReadStatus.OK;
-            //    }
-
-            //    if (barcode1 != BarcodeScanner1Template)
-            //    {
-            //        readStatus = ReadStatus.Mismatch;
-            //        reader.Number = Barcode1Counter - 1;
-
-            //        StopMachine1Motor();
-            //        StopBarcodeReader1();
-            //    }
-            //    reader.Status = readStatus;
-            //    reader.Date = DateTime.Now;
-
-            //    BarcodeReader1Collection.Insert(0, reader);
-
-            //}
         }
         private void RibbonButtonStart_OnClick(object sender, RoutedEventArgs e)
         {
@@ -530,7 +506,19 @@ namespace BarcodeScanner
         private void RibbonButtonSettings_OnClick(object sender, RoutedEventArgs e)
         {
             string path = Path.Combine(Application.StartupPath, "Config.json");
-            Process.Start("notepad", path);
+            Process process= Process.Start("notepad", path);
+            process.WaitForExit();
+            LoadConfig();
+        }
+
+        private void LoadConfig()
+        {
+            Config config = Config.LoadConfig();
+            formReadBarcode.HID1 = config.BarcodeReader1HID;
+            formReadBarcode.HID2 = config.BarcodeReader2HID;
+            this.WaitAfterIncreasingCounter1 = config.WaitAfterIncreasingCounter1;
+            this.CheckCounter1Timer = config.CheckCounter1Timer;
+            this.CheckCounter2Timer = config.CheckCounter2Timer;
         }
     }
 }

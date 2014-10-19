@@ -19,8 +19,10 @@ namespace BarcodeScanner
         public event EventHandler<Lib.BarcodeReadEventArgs> Barcode1Read;
         public event EventHandler<BarcodeReadEventArgs> Barcode2Read;
 
-        private string HID1;
-        private string HID2;
+        // config
+        public string HID1;
+        public string HID2;
+        //
 
         protected virtual void OnBarcode2Read(BarcodeReadEventArgs e)
         {
@@ -59,9 +61,9 @@ namespace BarcodeScanner
             Device.RegisterDevice(UsagePage.Generic, UsageId.GenericKeyboard, DeviceFlags.None);
             Device.KeyboardInput += Device_KeyboardInput;
 
-            Config config = Config.LoadConfig();
-            HID1 = string.Format("{0}\0", config.BarcodeReader1HID);
-            HID2 = string.Format("{0}\0", config.BarcodeReader2HID);
+            //Config config = Config.LoadConfig();
+            //HID1 = string.Format("{0}\0", config.BarcodeReader1HID);
+            //HID2 = string.Format("{0}\0", config.BarcodeReader2HID);
         }
 
         void Device_KeyboardInput(object sender, KeyboardInputEventArgs e)
