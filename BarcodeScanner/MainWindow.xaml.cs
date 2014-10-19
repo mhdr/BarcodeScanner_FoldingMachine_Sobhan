@@ -47,7 +47,7 @@ namespace BarcodeScanner
         private string LastBarcode1 = "";
 
         // Config
-        public int WaitAfterIncreasingCounter1;
+        public int DelayAfterIncreasingCounter1;
         public int CheckCounter1Timer;
         public int CheckCounter2Timer;
 
@@ -208,7 +208,7 @@ namespace BarcodeScanner
 
             lock (objLock)
             {
-                Thread.Sleep(this.WaitAfterIncreasingCounter1);
+                Thread.Sleep(this.DelayAfterIncreasingCounter1);
 
                 string barcode1 = LastBarcode1;
 
@@ -516,7 +516,7 @@ namespace BarcodeScanner
             Config config = Config.LoadConfig();
             formReadBarcode.HID1 = config.BarcodeReader1HID;
             formReadBarcode.HID2 = config.BarcodeReader2HID;
-            this.WaitAfterIncreasingCounter1 = config.WaitAfterIncreasingCounter1;
+            this.DelayAfterIncreasingCounter1 = config.DelayAfterIncreasingCounter1;
             this.CheckCounter1Timer = config.CheckCounter1Timer;
             this.CheckCounter2Timer = config.CheckCounter2Timer;
         }

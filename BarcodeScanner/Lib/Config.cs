@@ -13,7 +13,7 @@ namespace BarcodeScanner.Lib
     {
         public string BarcodeReader1HID;
         public string BarcodeReader2HID;
-        public int WaitAfterIncreasingCounter1;
+        public int DelayAfterIncreasingCounter1;
         public int CheckCounter1Timer;
         public int CheckCounter2Timer;
 
@@ -41,7 +41,7 @@ namespace BarcodeScanner.Lib
         {
             this.BarcodeReader1HID = "";
             this.BarcodeReader2HID = "";
-            this.WaitAfterIncreasingCounter1 = 2000;
+            this.DelayAfterIncreasingCounter1 = 2000;
             this.CheckCounter1Timer = 1000;
             this.CheckCounter2Timer = 2;
         }
