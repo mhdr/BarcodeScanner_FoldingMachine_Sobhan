@@ -305,7 +305,7 @@ namespace BarcodeScanner
                 if (barcode2 != BarcodeScanner2Template)
                 {
                     readStatus = ReadStatus.Mismatch;
-                    reader.Number = Barcode1Counter - 1;
+                    reader.Number = Barcode2Counter - 1;
 
 
                     StopMachine2Motor();
