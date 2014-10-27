@@ -27,9 +27,10 @@
     <UpdateUrl>\\rs\Storage\Department\Technical\Public\Ramezani\BarcodeScanner\</UpdateUrl>
     <ProductName>Barcode Scanner</ProductName>
     <PublisherName>Mahmood Ramzani</PublisherName>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
