@@ -149,6 +149,7 @@ namespace BarcodeScanner
             Timer22.IsEnabled = true;
             Timer11.Tick += Timer11_Tick;
             Timer22.Tick += Timer22_Tick;
+
         }
 
         void Timer22_Tick(object sender, EventArgs e)
