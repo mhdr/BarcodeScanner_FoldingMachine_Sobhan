@@ -48,6 +48,11 @@
                                                  Click="RibbonButtonTopMost_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </telerik:RadRibbonGroup>
 
+                    <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonAbout" Content="About" 
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonAbout_OnClick"/>
+                    </telerik:RadRibbonGroup>
                 </telerik:RadRibbonTab>
 
                 <telerik:RadRibbonTab Name="RibbonTabBarcodeScanner1" Header="Scanner 1">

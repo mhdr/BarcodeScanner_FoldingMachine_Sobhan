@@ -560,6 +560,11 @@ namespace BarcodeScanner
 
             //
         }
-        
+
+        private void RibbonButtonAbout_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowAbout windowAbout=new WindowAbout();
+            windowAbout.ShowDialog();
+        }
     }
 }
