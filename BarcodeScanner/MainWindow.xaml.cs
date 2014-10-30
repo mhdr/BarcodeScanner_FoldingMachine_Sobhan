@@ -50,6 +50,7 @@ namespace BarcodeScanner
         public int DelayAfterIncreasingCounter1;
         public int CheckCounter1Timer;
         public int CheckCounter2Timer;
+        public string SystemManagerPath;
 
         //
 
@@ -123,6 +124,8 @@ namespace BarcodeScanner
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             LoadConfig();
+
+            StartNIDistributedSystemManager();
 
             // Reset Counters
             PLCBool counter1Reset = new PLCBool(Statics.Counter1Reset);
@@ -484,9 +487,11 @@ namespace BarcodeScanner
 
         private void RibbonButtonStop2_OnClick(object sender, RoutedEventArgs e)
         {
-            BarcodeScanner2Running = false;
-            RibbonButtonStart2.IsEnabled = true;
-            RibbonButtonStop2.IsEnabled = false;
+            //BarcodeScanner2Running = false;
+            //RibbonButtonStart2.IsEnabled = true;
+            //RibbonButtonStop2.IsEnabled = false;
+
+            StopBarcodeReader2();
         }
 
         private void RibbonButtonSetTemplate2_OnClick(object sender, RoutedEventArgs e)
@@ -520,6 +525,41 @@ namespace BarcodeScanner
             this.DelayAfterIncreasingCounter1 = config.DelayAfterIncreasingCounter1;
             this.CheckCounter1Timer = config.CheckCounter1Timer;
             this.CheckCounter2Timer = config.CheckCounter2Timer;
+            this.SystemManagerPath = config.SystemManagerPath;
+
+            this.StartNIDistributedSystemManager();
         }
+
+        private void RibbonButtonTopMost_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (RibbonButtonTopMost.IsChecked == true)
+            {
+                this.Topmost = true;
+            }
+            else
+            {
+                this.Topmost = false;
+            }
+        }
+
+        public void StartNIDistributedSystemManager()
+        {
+            // Start NI Distributed System Manager
+            if (File.Exists(this.SystemManagerPath))
+            {
+                var processes =
+                    Process.GetProcessesByName(
+                        Path.GetFileNameWithoutExtension(this.SystemManagerPath));
+
+                if (!processes.Any(x => x.MainModule.FileName == this.SystemManagerPath))
+                {
+                    Process.Start(this.SystemManagerPath);
+                }
+
+            }
+
+            //
+        }
+        
     }
 }

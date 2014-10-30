@@ -16,6 +16,7 @@ namespace BarcodeScanner.Lib
         public int DelayAfterIncreasingCounter1;
         public int CheckCounter1Timer;
         public int CheckCounter2Timer;
+        public string SystemManagerPath;
 
         public static Config LoadConfig()
         {
@@ -44,6 +45,7 @@ namespace BarcodeScanner.Lib
             this.DelayAfterIncreasingCounter1 = 2000;
             this.CheckCounter1Timer = 1000;
             this.CheckCounter2Timer = 2;
+            this.SystemManagerPath = "";
         }
     }
 }
