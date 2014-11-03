@@ -49,6 +49,12 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonUserManual" Content="User Manual" 
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonUserManual_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
+                    <telerik:RadRibbonGroup>
                         <telerik:RadRibbonButton Name="RibbonButtonAbout" Content="About" 
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonAbout_OnClick"/>

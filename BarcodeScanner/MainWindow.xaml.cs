@@ -566,5 +566,11 @@ namespace BarcodeScanner
             WindowAbout windowAbout=new WindowAbout();
             windowAbout.ShowDialog();
         }
+
+        private void RibbonButtonUserManual_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowDocumentation windowDocumentation = new WindowDocumentation();
+            windowDocumentation.Show();
+        }
     }
 }

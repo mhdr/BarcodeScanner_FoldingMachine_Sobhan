@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using BarcodeScanner.Lib;
 
 namespace BarcodeScanner
 {
@@ -21,7 +22,11 @@ namespace BarcodeScanner
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            throw new NotImplementedException();
+            PLCBool plcVariable1 = new PLCBool(Statics.Machine1Motor);
+            plcVariable1.Stop();
+
+            PLCBool plcVariable2 = new PLCBool(Statics.Machine2Motor);
+            plcVariable2.Stop();
         }
     }
 }
