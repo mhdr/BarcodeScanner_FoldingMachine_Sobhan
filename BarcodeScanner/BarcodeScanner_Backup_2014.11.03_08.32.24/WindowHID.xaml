@@ -1,0 +1,25 @@
+﻿<Window x:Class="BarcodeScanner.WindowHID"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="WindowHID" Height="147" Width="700" Name="WindowsHID" >
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <TextBlock VerticalAlignment="Center" Margin="10,0">HID :</TextBlock>
+                <TextBox x:Name="TextBoxHID" MinWidth="630" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <telerik:RadButton Name="ButtonStep1" Content="Step 1" Width="100" Height="30" Margin="20 0 20 0" 
+                                   Click="ButtonStep1_OnClick" ToolTip="You should disconnect barcode reader from computer before pressing this button"/>
+                <telerik:RadButton Name="ButtonStep2" Content="Step 2" Width="100" Height="30" Margin="20 0 20 0" 
+                                   Click="ButtonStep2_OnClick" ToolTip="You should connect barcode reader to computer before pressing this button"/>
+            </StackPanel>
+    </Grid>
+</Window>
