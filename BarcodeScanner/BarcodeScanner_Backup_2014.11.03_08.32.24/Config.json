@@ -1,8 +1,0 @@
-﻿{
-	"BarcodeReader1HID" : "",
-	"BarcodeReader2HID" : "",
-	"DelayAfterIncreasingCounter1" : "2000",
-	"CheckCounter1Timer" : "1000",
-	"CheckCounter2Timer" : "2",
-	"SystemManagerPath" : ""
-}
