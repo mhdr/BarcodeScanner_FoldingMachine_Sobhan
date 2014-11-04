@@ -70,7 +70,7 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonCancleTemplate" Content="Cancle Template" IsEnabled="False"
+                        <telerik:RadRibbonButton Name="RibbonButtonCancleTemplate" Content="Cancel Template" IsEnabled="False"
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonCancleTemplate_OnClick"/>
                     </telerik:RadRibbonGroup>
@@ -97,7 +97,7 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
-                        <telerik:RadRibbonButton Name="RibbonButtonCancleTemplate2" Content="Cancle Template" IsEnabled="False"
+                        <telerik:RadRibbonButton Name="RibbonButtonCancleTemplate2" Content="Cancel Template" IsEnabled="False"
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonCancleTemplate2_OnClick"/>
                     </telerik:RadRibbonGroup>
