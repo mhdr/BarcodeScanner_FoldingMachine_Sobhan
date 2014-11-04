@@ -41,8 +41,9 @@ namespace BarcodeScanner
         private ListCollectionView _view;
         private ListCollectionView _view2;
 
-        private DispatcherTimer Timer11 = new DispatcherTimer(DispatcherPriority.Send);
-        private DispatcherTimer Timer22 = new DispatcherTimer(DispatcherPriority.Send);
+        private DispatcherTimer Timer1 = new DispatcherTimer(DispatcherPriority.Send);
+        private DispatcherTimer Timer2 = new DispatcherTimer(DispatcherPriority.Send);
+        private DispatcherTimer TimerWatchdog=new DispatcherTimer(DispatcherPriority.Send);
 
         private int LastRealCounter1=0;
         private string LastBarcode1 = "";
@@ -147,16 +148,26 @@ namespace BarcodeScanner
             BindGridViewBarcodeReader1();
             BindGridViewBarcodeReader2();
 
-            Timer11.Interval = new TimeSpan(0, 0, 0, 0, 1000);
-            Timer22.Interval = new TimeSpan(0, 0, 0, 0, 2);
-            Timer11.IsEnabled = true;
-            Timer22.IsEnabled = true;
-            Timer11.Tick += Timer11_Tick;
-            Timer22.Tick += Timer22_Tick;
+            Timer1.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+            Timer2.Interval = new TimeSpan(0, 0, 0, 0, 2);
+            TimerWatchdog.Interval=new TimeSpan(0,0,0,0,500);
 
+            Timer1.IsEnabled = true;
+            Timer2.IsEnabled = true;
+            TimerWatchdog.IsEnabled = true;
+
+            Timer1.Tick += Timer1Tick;
+            Timer2.Tick += Timer2Tick;
+            TimerWatchdog.Tick += TimerWatchdog_Tick;
         }
 
-        void Timer22_Tick(object sender, EventArgs e)
+        void TimerWatchdog_Tick(object sender, EventArgs e)
+        {
+            PLCBool plcBool=new PLCBool(Statics.Watchdog);
+            plcBool.Start();
+        }
+
+        void Timer2Tick(object sender, EventArgs e)
         {
             if (!BarcodeScanner2Running)
             {
@@ -187,7 +198,7 @@ namespace BarcodeScanner
             }
         }
 
-        void Timer11_Tick(object sender, EventArgs e)
+        void Timer1Tick(object sender, EventArgs e)
         {
             if (!BarcodeScanner1Running)
             {
@@ -391,7 +402,7 @@ namespace BarcodeScanner
                 LastRealCounter1 = CorrectBarcodeScanCounter1;
 
                 //Timer1.Start();
-                Timer11.IsEnabled = true;
+                Timer1.IsEnabled = true;
 
                 StartMachine1Motor();
             }
@@ -415,7 +426,7 @@ namespace BarcodeScanner
                 CorrectBarcodeScanCounter2 = plcInt1.Value;
 
                 //Timer2.Start();
-                Timer22.IsEnabled = true;
+                Timer2.IsEnabled = true;
 
                 StartMachine2Motor();
             }
@@ -449,7 +460,7 @@ namespace BarcodeScanner
             BarcodeScanner1Running = false;
             RibbonButtonStart.IsEnabled = true;
             RibbonButtonStop.IsEnabled = false;
-            Timer11.IsEnabled = false;
+            Timer1.IsEnabled = false;
         }
 
         private void StopBarcodeReader2()
@@ -457,7 +468,7 @@ namespace BarcodeScanner
             BarcodeScanner2Running = false;
             RibbonButtonStart2.IsEnabled = true;
             RibbonButtonStop2.IsEnabled = false;
-            Timer22.IsEnabled = false;
+            Timer2.IsEnabled = false;
         }
 
         private void RibbonButtonSetTemplate_OnClick(object sender, RoutedEventArgs e)
