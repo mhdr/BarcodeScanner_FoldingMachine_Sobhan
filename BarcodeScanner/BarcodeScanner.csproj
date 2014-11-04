@@ -87,9 +87,9 @@
     </Reference>
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
-    <Reference Include="SharpDX">
-      <HintPath>packages\SharpDX.2.0.4\lib\net20\SharpDX.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.RawInput">
       <HintPath>..\DLL\SharpDX.RawInput.dll</HintPath>
