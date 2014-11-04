@@ -54,6 +54,19 @@ namespace BarcodeScanner
         {
             Log log = new Log(DateTime.Now, e.ExceptionObject.ToString());
             Log.Write(log);
+
+            try
+            {
+                PLCBool plcVariable1 = new PLCBool(Statics.Machine1Motor);
+                plcVariable1.Stop();
+
+                PLCBool plcVariable2 = new PLCBool(Statics.Machine2Motor);
+                plcVariable2.Stop();
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
