@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Telerik.Windows.Documents.Fixed;
+using Telerik.Windows.Documents.Fixed.UI;
+using Telerik.Windows.Documents.UI;
 
 namespace BarcodeScanner
 {
@@ -30,6 +32,7 @@ namespace BarcodeScanner
         private void WindowDocumentation_OnLoaded(object sender, RoutedEventArgs e)
         {
             Stream stream=new MemoryStream(Properties.Resources.UserManual);
+            PdfViewerUserManual.FitToWidth();
             PdfViewerUserManual.DocumentSource=new PdfDocumentSource(stream);
         }
     }

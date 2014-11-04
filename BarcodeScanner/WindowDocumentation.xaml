@@ -1,7 +1,7 @@
 ﻿<Window xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"  x:Class="BarcodeScanner.WindowDocumentation"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="WindowDocumentation" Height="300" Width="300" WindowState="Maximized" Loaded="WindowDocumentation_OnLoaded">
+        Title="User Manual" Height="300" Width="300" WindowState="Maximized" Loaded="WindowDocumentation_OnLoaded">
     <Grid>
         <telerik:RadPdfViewer Name="PdfViewerUserManual"/>
     </Grid>

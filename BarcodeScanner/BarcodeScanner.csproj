@@ -27,8 +27,8 @@
     <UpdateUrl>\\rs\Storage\Department\Technical\Public\Ramezani\BarcodeScanner\</UpdateUrl>
     <ProductName>Barcode Scanner</ProductName>
     <PublisherName>Mahmood Ramzani</PublisherName>
-    <ApplicationRevision>16</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -189,6 +189,9 @@
     <Compile Include="WindowScannerManual.xaml.cs">
       <DependentUpon>WindowScannerManual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowService.xaml.cs">
+      <DependentUpon>WindowService.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -232,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowScannerManual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

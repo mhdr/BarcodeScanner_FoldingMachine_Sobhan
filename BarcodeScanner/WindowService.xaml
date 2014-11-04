@@ -1,0 +1,28 @@
+﻿<Window x:Class="BarcodeScanner.WindowService"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Services" Height="221" Width="516">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Machine 1">
+            <StackPanel Orientation="Horizontal">
+                <telerik:RadButton Width="70" Height="25" Content="Start" Name="ButtonStartMachine1" Margin="50,0,100,0" Click="ButtonStartMachine1_OnClick"/>
+                <telerik:RadButton Width="70" Height="25" Content="Stop" Name="ButtonStopMachine1" Click="ButtonStopMachine1_OnClick"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Header="Machine 2">
+            <StackPanel Orientation="Horizontal">
+                <telerik:RadButton Width="70" Height="25" Content="Start" Name="ButtonStartMachine2" Margin="50,0,100,0"
+                                   Click="ButtonStartMachine2_OnClick"/>
+                <telerik:RadButton Width="70" Height="25" Content="Stop" Name="ButtonStopMachine2" Click="ButtonStopMachine2_OnClick"/>
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>

@@ -636,5 +636,11 @@ namespace BarcodeScanner
             WindowPositionImage windowPositionImage=new WindowPositionImage();
             windowPositionImage.Show();
         }
+
+        private void RibbonButtonService_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowService windowService=new WindowService();
+            windowService.Show();
+        }
     }
 }
