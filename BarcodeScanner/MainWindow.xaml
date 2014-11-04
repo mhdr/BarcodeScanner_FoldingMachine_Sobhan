@@ -44,6 +44,12 @@
                     </telerik:RadRibbonGroup>
 
                     <telerik:RadRibbonGroup>
+                        <telerik:RadRibbonButton Name="RibbonButtonLog" Content="Log" 
+                                                 MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Click="RibbonButtonLog_OnClick"/>
+                    </telerik:RadRibbonGroup>
+
+                    <telerik:RadRibbonGroup>
                         <telerik:RadRibbonButton Name="RibbonButtonExit" Content="Exit" 
                                                  MinWidth="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                  Click="RibbonButtonExit_OnClick"/>

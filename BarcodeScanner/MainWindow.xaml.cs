@@ -618,5 +618,11 @@ namespace BarcodeScanner
         {
             Environment.Exit(0);
         }
+
+        private void RibbonButtonLog_OnClick(object sender, RoutedEventArgs e)
+        {
+            string path = Path.Combine(Application.StartupPath, "Log.json");
+            Process process = Process.Start("notepad", path);
+        }
     }
 }

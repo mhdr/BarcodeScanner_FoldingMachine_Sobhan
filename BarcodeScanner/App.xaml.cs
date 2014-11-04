@@ -17,7 +17,23 @@ namespace BarcodeScanner
     {
         private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            throw new NotImplementedException();
+            Log log=new Log(DateTime.Now,e.Exception.ToString());
+            Log.Write(log);
+
+            try
+            {
+                PLCBool plcVariable1 = new PLCBool(Statics.Machine1Motor);
+                plcVariable1.Stop();
+
+                PLCBool plcVariable2 = new PLCBool(Statics.Machine2Motor);
+                plcVariable2.Stop();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            e.Handled = true;
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
@@ -36,7 +52,8 @@ namespace BarcodeScanner
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            throw new NotImplementedException();
+            Log log = new Log(DateTime.Now, e.ExceptionObject.ToString());
+            Log.Write(log);
         }
     }
 }

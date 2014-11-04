@@ -150,6 +150,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Lib\Log.cs" />
     <Compile Include="WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>
     </Compile>
