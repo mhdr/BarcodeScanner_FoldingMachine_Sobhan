@@ -28,5 +28,15 @@ namespace BarcodeScanner
             PLCBool plcVariable2 = new PLCBool(Statics.Machine2Motor);
             plcVariable2.Stop();
         }
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        }
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

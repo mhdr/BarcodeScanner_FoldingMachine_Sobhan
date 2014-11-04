@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using BarcodeScanner.Lib;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
 using Application = System.Windows.Forms.Application;
 using Path = System.IO.Path;
@@ -287,6 +288,7 @@ namespace BarcodeScanner
                 TextBlockTemplate2.Text = BarcodeScanner2Template;
                 RibbonButtonSetTemplate2.IsEnabled = true;
                 BarcodeScanner2TemplateRunning = false;
+                RibbonButtonCancleTemplate2.IsEnabled = false;
             }
 
             if (BarcodeScanner2Running)
@@ -332,6 +334,7 @@ namespace BarcodeScanner
                 TextBlockTemplate1.Text = BarcodeScanner1Template;
                 RibbonButtonSetTemplate.IsEnabled = true;
                 BarcodeScanner1TemplateRunning = false;
+                RibbonButtonCancleTemplate.IsEnabled = false;
             }
 
             if (BarcodeScanner1Running)
@@ -342,6 +345,7 @@ namespace BarcodeScanner
         private void RibbonButtonStart_OnClick(object sender, RoutedEventArgs e)
         {
             StartBarcodeReader1();
+            ManageTopMost();
         }
 
         public void StartMachine1Motor()
@@ -437,6 +441,7 @@ namespace BarcodeScanner
         private void RibbonButtonStop_OnClick(object sender, RoutedEventArgs e)
         {
             StopBarcodeReader1();
+            ManageTopMost();
         }
 
         private void StopBarcodeReader1()
@@ -461,7 +466,10 @@ namespace BarcodeScanner
             {
                 BarcodeScanner1TemplateRunning = true;
                 RibbonButtonSetTemplate.IsEnabled = false;
+                RibbonButtonCancleTemplate.IsEnabled = true;
             }
+
+            ManageTopMost();
         }
 
         private void BindGridViewBarcodeReader1()
@@ -483,15 +491,13 @@ namespace BarcodeScanner
         private void RibbonButtonStart2_OnClick(object sender, RoutedEventArgs e)
         {
             StartBarcodeReader2();
+            ManageTopMost();
         }
 
         private void RibbonButtonStop2_OnClick(object sender, RoutedEventArgs e)
         {
-            //BarcodeScanner2Running = false;
-            //RibbonButtonStart2.IsEnabled = true;
-            //RibbonButtonStop2.IsEnabled = false;
-
             StopBarcodeReader2();
+            ManageTopMost();
         }
 
         private void RibbonButtonSetTemplate2_OnClick(object sender, RoutedEventArgs e)
@@ -500,7 +506,10 @@ namespace BarcodeScanner
             {
                 BarcodeScanner2TemplateRunning = true;
                 RibbonButtonSetTemplate2.IsEnabled = false;
+                RibbonButtonCancleTemplate2.IsEnabled = true;
             }
+
+            ManageTopMost();
         }
 
         private void RibbonButtonHID_OnClick(object sender, RoutedEventArgs e)
@@ -528,18 +537,6 @@ namespace BarcodeScanner
             this.SystemManagerPath = config.SystemManagerPath;
 
             this.StartNIDistributedSystemManager();
-        }
-
-        private void RibbonButtonTopMost_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (RibbonButtonTopMost.IsChecked == true)
-            {
-                this.Topmost = true;
-            }
-            else
-            {
-                this.Topmost = false;
-            }
         }
 
         public void StartNIDistributedSystemManager()
@@ -571,6 +568,44 @@ namespace BarcodeScanner
         {
             WindowDocumentation windowDocumentation = new WindowDocumentation();
             windowDocumentation.Show();
+        }
+
+        private void ManageTopMost()
+        {
+            if (BarcodeScanner1Running || BarcodeScanner2Running || BarcodeScanner1TemplateRunning ||
+                BarcodeScanner2TemplateRunning)
+            {
+                this.Topmost = true;
+                RibbonTabTools.IsEnabled = false;
+                RibbonTabHelp.IsEnabled = false;
+            }
+            else
+            {
+                this.Topmost = false;
+                RibbonTabTools.IsEnabled = true;
+                RibbonTabHelp.IsEnabled = true;
+            }
+        }
+
+        private void RibbonButtonCancleTemplate_OnClick(object sender, RoutedEventArgs e)
+        {
+            RibbonButtonSetTemplate.IsEnabled = true;
+            BarcodeScanner1TemplateRunning = false;
+            RibbonButtonCancleTemplate.IsEnabled = false;
+            ManageTopMost();
+        }
+
+        private void RibbonButtonCancleTemplate2_OnClick(object sender, RoutedEventArgs e)
+        {
+            RibbonButtonSetTemplate2.IsEnabled = true;
+            BarcodeScanner2TemplateRunning = false;
+            RibbonButtonCancleTemplate2.IsEnabled = false;
+            ManageTopMost();
+        }
+
+        private void RibbonButtonExit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
