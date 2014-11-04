@@ -55,9 +55,6 @@ namespace BarcodeScanner
         {
             Images1 = Lib.PostionImage.GetImagesForMachine1();
             Images2 = Lib.PostionImage.GetImagesForMachine2();
-
-            Window1 window1=new Window1();
-            window1.Show();
         }
 
         private void ButtonShow_OnClick(object sender, RoutedEventArgs e)
@@ -78,23 +75,14 @@ namespace BarcodeScanner
             {
                 Lib.PostionImage selectedImage = Images1.FirstOrDefault(x => x.MachineName == machine && x.ProductionName == production);
 
-                if (selectedImage != null) ImageViewer.Source = GetImage(selectedImage.Image);
+                if (selectedImage != null) ImageViewer.Source = new BitmapImage(new Uri(selectedImage.IamgePath));
             }
             else if (machine == "Machine 2")
             {
                 Lib.PostionImage selectedImage = Images2.FirstOrDefault(x => x.MachineName == machine && x.ProductionName == production);
 
-                if (selectedImage != null) ImageViewer.Source = GetImage(selectedImage.Image);
+                if (selectedImage != null) ImageViewer.Source = new BitmapImage(new Uri(selectedImage.IamgePath));
             }
-        }
-
-        private BitmapImage GetImage(Bitmap bitmap)
-        {
-            Stream stream = new MemoryStream();
-            bitmap.Save(stream, ImageFormat.Bmp);
-            BitmapImage image = new BitmapImage();
-            image.StreamSource = stream;
-            return image;
         }
     }
 }

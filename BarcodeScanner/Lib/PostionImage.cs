@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BarcodeScanner.Lib
 {
@@ -11,13 +13,13 @@ namespace BarcodeScanner.Lib
     {
         public string MachineName;
         public string ProductionName;
-        public Bitmap Image;
+        public string IamgePath;
 
-        public PostionImage(string machineName, string productionName, Bitmap image)
+        public PostionImage(string machineName, string productionName, string image)
         {
             this.MachineName = machineName;
             this.ProductionName = productionName;
-            this.Image = image;
+            this.IamgePath = image;
         }
 
         public static List<PostionImage> GetImagesForMachine1()
@@ -32,9 +34,9 @@ namespace BarcodeScanner.Lib
         {
             List<PostionImage> resultList=new List<PostionImage>();
 
-            PostionImage image1=new PostionImage("Machine 2","MabThera 100 mg/10 ml",Properties.Resources.Machine2MabThera100);
-            PostionImage image2 = new PostionImage("Machine 2", "Xeloda 500 mg", Properties.Resources.Machine2Xeloda500);
-            PostionImage image3 = new PostionImage("Machine 2", "MabThera 500 mg/50 ml", Properties.Resources.Machine2MabThera500);
+            PostionImage image1=new PostionImage("Machine 2","MabThera 100 mg/10 ml",Path.Combine(Application.StartupPath,"Images/Machine2MabThera100.jpg"));
+            PostionImage image2 = new PostionImage("Machine 2", "Xeloda 500 mg", Path.Combine(Application.StartupPath, "Images/Machine2Xeloda500.jpg"));
+            PostionImage image3 = new PostionImage("Machine 2", "MabThera 500 mg/50 ml", Path.Combine(Application.StartupPath, "Images/Machine2MabThera500.jpg"));
 
 
             resultList.Add(image1);
