@@ -63,6 +63,16 @@ namespace BarcodeScanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] ScannerManual {
+            get {
+                object obj = ResourceManager.GetObject("ScannerManual", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] UserManual {
             get {
                 object obj = ResourceManager.GetObject("UserManual", resourceCulture);

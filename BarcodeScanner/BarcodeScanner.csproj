@@ -177,6 +177,9 @@
     <Compile Include="WindowHID.xaml.cs">
       <DependentUpon>WindowHID.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowScannerManual.xaml.cs">
+      <DependentUpon>WindowScannerManual.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -212,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowHID.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowScannerManual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,6 +259,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\ScannerManual.pdf" />
     <None Include="Resources\UserManual.pdf" />
   </ItemGroup>
   <ItemGroup>
