@@ -630,5 +630,11 @@ namespace BarcodeScanner
             WindowScannerManual windowScannerManual=new WindowScannerManual();
             windowScannerManual.Show();
         }
+
+        private void RibbonButtonPositions_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowPositionImage windowPositionImage=new WindowPositionImage();
+            windowPositionImage.Show();
+        }
     }
 }

@@ -27,7 +27,7 @@
     <UpdateUrl>\\rs\Storage\Department\Technical\Public\Ramezani\BarcodeScanner\</UpdateUrl>
     <ProductName>Barcode Scanner</ProductName>
     <PublisherName>Mahmood Ramzani</PublisherName>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -168,6 +168,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Lib\Log.cs" />
+    <Compile Include="Lib\PostionImage.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>
     </Compile>
@@ -176,6 +180,9 @@
     </Compile>
     <Compile Include="WindowHID.xaml.cs">
       <DependentUpon>WindowHID.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowPositionImage.xaml.cs">
+      <DependentUpon>WindowPositionImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowScannerManual.xaml.cs">
       <DependentUpon>WindowScannerManual.xaml</DependentUpon>
@@ -206,6 +213,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowAbout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowHID.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowPositionImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,6 +253,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Machine2Xeloda500.jpg" />
+    <None Include="Resources\Machine2MabThera500.jpg" />
+    <None Include="Resources\Machine2MabThera100.jpg" />
     <EmbeddedResource Include="FormReadBarcode.resx">
       <DependentUpon>FormReadBarcode.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,6 +268,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="BarcodeScanner_TemporaryKey.pfx" />
+    <Resource Include="Images\Machine2MabThera100.jpg" />
+    <Resource Include="Images\Machine2MabThera500.jpg" />
+    <Resource Include="Images\Machine2Xeloda500.jpg" />
     <Content Include="Log.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
