@@ -8,7 +8,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Version : 1.1.0.4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Text="Version : 1.1.0.6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <TextBlock Text="Sobhan Oncology" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center"/>
     </Grid>
 </Window>

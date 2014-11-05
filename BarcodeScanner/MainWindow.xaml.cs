@@ -165,6 +165,7 @@ namespace BarcodeScanner
         {
             PLCBool plcBool=new PLCBool(Statics.Watchdog);
             plcBool.Start();
+            plcBool.Stop();
         }
 
         void Timer2Tick(object sender, EventArgs e)
