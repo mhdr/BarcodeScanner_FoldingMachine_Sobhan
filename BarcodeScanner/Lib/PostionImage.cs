@@ -26,6 +26,14 @@ namespace BarcodeScanner.Lib
         {
             List<PostionImage> resultList = new List<PostionImage>();
 
+            PostionImage image1 = new PostionImage("Machine 1", "MabThera 100 mg/10 ml", Path.Combine(Application.StartupPath, "Images/Machine1MabThera100.jpg"));
+            PostionImage image2 = new PostionImage("Machine 1", "Xeloda 500 mg", Path.Combine(Application.StartupPath, "Images/Machine1Xeloda500.jpg"));
+            PostionImage image3 = new PostionImage("Machine 1", "MabThera 500 mg/50 ml", Path.Combine(Application.StartupPath, "Images/Machine1MabThera500.jpg"));
+
+
+            resultList.Add(image1);
+            resultList.Add(image2);
+            resultList.Add(image3);
 
             return resultList;
         }

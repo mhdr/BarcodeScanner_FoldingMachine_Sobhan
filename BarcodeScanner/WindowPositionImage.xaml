@@ -24,7 +24,7 @@
         </GroupBox>
         
         <Border Grid.Row="1">
-            <Image Name="ImageViewer"/>
+            <Image Name="ImageViewer" />
         </Border>
         
     </Grid>

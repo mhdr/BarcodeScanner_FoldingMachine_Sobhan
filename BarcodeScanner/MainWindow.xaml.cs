@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -254,7 +255,7 @@ namespace BarcodeScanner
                         Dispatcher.BeginInvoke(new Action(() =>
                         {
                             StopMachine1Motor();
-                            StopBarcodeReader1();                            
+                            StopBarcodeReader1();
                         }));
                     }
                     reader.Status = readStatus;
@@ -617,6 +618,7 @@ namespace BarcodeScanner
 
         private void RibbonButtonExit_OnClick(object sender, RoutedEventArgs e)
         {
+            Lib.Statics.ShouldExit = true;
             Environment.Exit(0);
         }
 
@@ -642,6 +644,14 @@ namespace BarcodeScanner
         {
             WindowService windowService=new WindowService();
             windowService.Show();
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (!Lib.Statics.ShouldExit)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

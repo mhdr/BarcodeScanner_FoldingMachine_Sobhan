@@ -28,25 +28,25 @@ namespace BarcodeScanner
         private void ButtonStartMachine1_OnClick(object sender, RoutedEventArgs e)
         {
             BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine1Motor);
-            plcVariable.Start();
+            plcVariable.Stop();
         }
 
         private void ButtonStopMachine1_OnClick(object sender, RoutedEventArgs e)
         {
             BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine1Motor);
-            plcVariable.Stop();
+            plcVariable.Start();
         }
 
         private void ButtonStartMachine2_OnClick(object sender, RoutedEventArgs e)
         {
             BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine2Motor);
-            plcVariable.Start();
+            plcVariable.Stop();
         }
 
         private void ButtonStopMachine2_OnClick(object sender, RoutedEventArgs e)
         {
             BarcodeScanner.Lib.PLCBool plcVariable = new PLCBool(BarcodeScanner.Lib.Statics.Machine2Motor);
-            plcVariable.Stop();
+            plcVariable.Start();
         }
     }
 }
