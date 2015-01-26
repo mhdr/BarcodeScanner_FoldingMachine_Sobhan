@@ -302,6 +302,7 @@ namespace BarcodeScanner
                 RibbonButtonSetTemplate2.IsEnabled = true;
                 BarcodeScanner2TemplateRunning = false;
                 RibbonButtonCancleTemplate2.IsEnabled = false;
+                RibbonButtonStart2.IsEnabled = true;
             }
 
             if (BarcodeScanner2Running)
@@ -348,6 +349,7 @@ namespace BarcodeScanner
                 RibbonButtonSetTemplate.IsEnabled = true;
                 BarcodeScanner1TemplateRunning = false;
                 RibbonButtonCancleTemplate.IsEnabled = false;
+                RibbonButtonStart.IsEnabled = true;
             }
 
             if (BarcodeScanner1Running)
